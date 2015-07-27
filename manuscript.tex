@@ -1,0 +1,300 @@
+% use paper, or submit
+% use 11 pt (preferred), 12 pt, or 10 pt only
+
+\documentclass[letterpaper, preprint, paper,11pt]{AAS}	% for preprint proceedings
+%\documentclass[letterpaper, paper,11pt]{AAS}		% for final proceedings (20-page limit)
+%\documentclass[letterpaper, paper,12pt]{AAS}		% for final proceedings (20-page limit)
+%\documentclass[letterpaper, paper,10pt]{AAS}		% for final proceedings (20-page limit)
+%\documentclass[letterpaper, submit]{AAS}			% to submit to JAS
+
+\usepackage{AAS_packages}
+%\usepackage{subfigure} % have subcaption in use instead
+%\usepackage[notref,notcite]{showkeys}  % use this to temporarily show labels
+
+\PaperNumber{XX-XXX}
+
+
+
+\begin{document}
+
+\title{Systematic Design of Optimal Low-Thrust Transfers for the Three-Body Problem}
+
+\author{Shankar Kulumani\thanks{Doctoral Student, Mechanical and Aerospace Engineering, George Washington University, 801 22nd St NW, Washington, DC 20052, Email: \href{mailto:skulumani@gwu.edu}{skulumani@gwu.edu}.},  
+Taeyoung Lee\thanks{Associate Professor, Mechanical and Aerospace Engineering, George Washington University, 801 22nd St NW, Washington, DC 20052, Tel: 202-994-8710, Email: \href{mailto:tylee@gwu.edu}{tylee@gwu.edu}.}
+}
+
+
+\maketitle{} 		
+
+
+\begin{abstract}
+Concise summary
+
+general topic is mentioned first
+
+how it relates to previous work
+
+new developments in paper
+
+summary of the contents of this paper
+
+\end{abstract}
+
+
+\section{Introduction}\label{sec:introduction}
+% MOTIVATION FOR LOW THRUST ORBITAL TRANSFER 
+Designing spacecraft trajectories is a classic and ongoing topic of research.
+With the current fiscal constraints there is an increased focused on technologies with a critical impact on mass.
+Optimal expenditure of onboard propellant is critical to allowing a mission to continue for a longer period of time or to enable the launch of a less massive spacecraft.
+Electric propulsion systems offer a much greater specific impulse than chemical systems and are able to operate for extended periods of time.
+However, these electric propulsion systems typically have much less thrust than their chemical counterparts and therefore must operate over longer durations in order to impart the desired momentum change.
+Recent developments in miniature electric propulsion~\cite{haque2013} offer the potential for new research opportunities for small spacecraft.
+With reduced development intervals and decreased launch costs, small satellites have gained increased focus as a cost effective means of scientific and technologic development. 
+The merger of small satellites with miniature electric propulsion enables inexpensive and responsive missions requiring large changes in orbital energy or extended mission lifespan.
+With the potential for more demanding missions, even greater importance is placed on the mission design to ensure that optimal trajectories satisfy mission requirements. 
+In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential missions at a reduced energy cost~\cite{koon2000}.
+Future space missions are increasing in complexity and will require new classes of orbits that are not possible via the traditional conic approach~\cite{ross2006,gomez2001}.
+Optimally combining the dynamical structure of the three-body problem with low-thrust propulsion system is vital for future mission success.
+
+% PRIOR WORK AND CHALLENGES
+Much work has focused on optimal control for spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011}.
+Typically, the optimal control problem is solved via direct methods, which approximate the continuous problem as a parameter optimization problem.
+The state and/or control trajectories are parameterized and solved in the form of a nonlinear optimization problem.
+References~\citenum{mingotti2011} and~\citenum{grebow2011} use this direct approach in designing low-thrust transfers in the three-body problem.
+Alternatively, indirect methods apply calculus of variations to derive the necessary conditions for optimality. 
+This yields a lower dimensioned problem than the direct approach and algebraic conditions that, when satisfied, guarantee local optimality in contrast to direct methods which result in sub-optimal solutions.
+
+Additionally, References~\citenum{mingotti2011} and~\citenum{grebow2011} implement the solutions using conventional Runge-Kutta integration techniques.
+These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation.
+These dissipative effects are even more detrimental with the addition of low-thrust propulsion to the dynamic equations of motion.
+Conventional integration techniques fail to capture the physical laws and geometric properties of the dynamic system.
+As a result, the long term effects of low-thrust on the spacecraft trajectory are not accurately captured. 
+
+References~\citenum{koon2000} and~\citenum{ross2006} have illustrated the rich structure that exists in the three-body problem.
+Within the three-body problem, a spacecraft's feasible region of motion is constrained by it's energy, or Jacobi integral. 
+It has been shown that there exist multi-dimensional tubes, or invariant manifolds, of constant energy trajectories that span the state space. 
+Associated with periodic solutions of the three-body dynamics, these invariant manifolds allow for the spacecraft to traverse vast expanses of the state space with zero energy change. 
+However, the results presented are highly case specific and difficult to generalize to arbitrary transfers.
+Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system.
+In addition, transfer orbits along an invariant manifold require large time of flights which may be undesirable for time critical missions.
+The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
+
+% OBJECTIVE OF THIS WORK
+In order to address these issues the authors propose to develop a accurate and numerically stable method for long-term optimal orbital transfers.
+This approach will avoid the instability and dissipative effects of conventional integration schemes.
+In addition, the effects of low-thrust propulsion will be directly included in the integration method to ensure that extended duration optimal trajectories are computed correctly.
+This improved method will enable the derivation of a systematic method of generating optimal transfer orbits between arbitrary states.
+Indirect optimal control, based on the calculus of variations, will be implemented in order to generate optimal orbital transfers.
+This will avoid the approximation issues inherent in the previous work, which utilized direct optimal control methods.
+With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low-thrust propulsion systems.
+
+% TECHNICAL DESCRIPTION OF APPROACH
+To achieve these objectives, computational geometric optimal control techniques will be applied. 
+The dynamics of the three-body system are derived from the discrete Lagrangian, which approximates the integral of the continuous time Lagrangian over a fixed discrete step.
+Application of the discrete Euler-Lagrange equations, or the discrete Legendre transform, results in the discrete equations of motion.
+This discrete update map, or variational integrator, shares the same geometric properties of the continuous time system and exhibits much better energy behavior than the traditional integration methods, especially over long time periods.
+A discrete optimal control problem is formulated from the discrete equations of motion.
+This approach, where explicit discretization occurs prior to optimization,  is in contrast to the typical method, where the equations of motion are implicitly discretized during the optimization procedure.
+Formulating the problem in this manner results in a more stable and accurate optimal solutions. 
+In indirect methods the optimal control problem is expressed as a two-point boundary value problem.
+Optimal solutions are generally sensitive to small variations in the initial multipliers.
+As a result, the numerical stability of sensitivity derivatives is critical to accuracy and computational performance. 
+The use of geometric integrators, which do not suffer the numerical dissipation of conventional integration methods, results in a more robust and efficient solution.
+
+A discrete optimal control problem is formulated to determine the reachability set on a Poincar\'e section.
+Given an initial condition and fixed time horizon, the reachable set is the set of states attainable, subject to the operational constraints of the spacecraft. 
+Generation of this reachability set allows for the extension of the previous control-free missions in the three-body problem. 
+The addition of low-thrust propulsion affords the ability to enlarge the reachable set as compared to the control-free case.
+Maximization of the reachability set, on an appropriately chosen Poincar\'e section, allows for a greater space of potential transfer trajectories.
+The use of the Poincar\`e section allows for design on a lower dimensional space and simplifies the design process.
+Once an intersection is determined on the Poincar\`e section a transfer is calculated.
+
+% SUMMARY OF CONTRIBUTIONS
+In this paper, the authors develop a systematic method of generating optimal transfer orbits in the three-body problem.
+Previous results in the design of optimal transfers have relied on suboptimal direct optimization methods and conventional integration techniques.
+This paper provides a discrete optimal control formulation to generate the reachability set on a Poincar\'e section.
+The use of a geometric integrators ensures numerical stability for long-duration orbit transfers.
+
+\section{System Model}\label{sec:pcrtbp}
+The system model is based on the planar circular restricted three body problem~(PCRTBP).
+The Earth is assumed to be the more massive primary, \( m_1 \), while the Moon is the second, smaller primary \( m_2\).
+The equations of motion are developed in a rotating reference frame which allows for much greater insight into the structure of the dynamics.
+The \( \hat{x} \) axis is directed along the vector from the Earth to the Moon.
+The \( \hat{y} \) axis lies in the orbital plane and is orthogonal to \( \hat{x} \).
+The rotating reference frame is centered at the system barycenter.
+It is assumed that the the \(\left( \hat{x}, \hat{y}\right)\) rotates with a constant angular velocity equal to the mean motion of the Moon.
+Following convention, the system is also non-dimensionalized by the characteristic mass, length, and time~\cite{koon2000}.
+As a result, the system can be characterized by a single mass parameter \( \mu \).
+\begin{equation}
+	\mu = \frac{m_2}{m_1+m_2}
+	\label{eq:mass_param}
+\end{equation}
+The larger primary, \(m_1\), is located at \( \left(  -\mu , 0 \right)\) and the smaller \( m_2\) is located at \( \left( 1-\mu , 0 \right)\).
+In the rotating reference frame the Lagrangian is given by
+\begin{equation}
+	L = \frac{1}{2} \left( \left( \dot{x} -y \right)^2 + \left( \dot{y} + x \right)^2 \right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}
+	\label{eq:lagrangian}
+\end{equation}
+where the distance \(r_1\) and \(r_2\) of the spacecraft to each primary is defined in rotating coordinates as
+\begin{align}
+	r_1 &= \sqrt{\left( x + \mu\right)^2 + y^2} \\
+	r_2 &= \sqrt{\left( x - 1 + \mu\right)^2 + y^2}
+	\label{eq:distances}
+\end{align}
+Application of the Euler-Lagrange equations results in following equations of motion defined in the rotating reference frame
+\begin{align}
+	\ddot{x} - 2 \dot{y} + \frac{\partial}{\partial x} U &= u_x \nonumber \\
+	\ddot{y} + 2 \dot{y} + \frac{\partial}{\partial y} U &= u_y 
+	\label{eq:cont_eom}
+\end{align}
+where the effective potential \( U\) is defined as
+\begin{equation}
+	U = \frac{1}{2} \left( x^2 y^2\right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}
+	\label{eq:eff_pot}
+\end{equation}
+and the control inputs are defined as \( u_x\) and \(u_y\).
+Defining the state \( \bar{x} = \begin{bmatrix}\bar{r} &\bar{v} \end{bmatrix}\) with \(\bar{r} \in \R^{2\times1}\) and \(\bar{v} \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
+The equations of motion may be rewritten in state space form
+\begin{equation}
+	\left[\begin{array}{c} \dot{\bar{r}} \\ \dot{\bar{v}} \end{array} \right] = 
+	\left[ \begin{array}{c} \bar{v} \\ A \bar{v} + \nabla U + \bar{u}(t) \end{array} \right] = f\left( t,x, u\right)
+\end{equation}
+where the matrix \( A \) and psuedo gravitational potential gradient \( \nabla U\) are
+\begin{equation}\label{eq:A_mat}
+	A = \left[ \begin{array}{ccc} 0 & 2 & 0 \\ -2 & 0 & 0 \\ 0 & 0 & 0 \end{array} \right]
+\end{equation}
+\begin{equation} \label{eq:grav_pot}
+	\nabla U = \left[ \begin{array}{c} x - \frac{ \left(1 - \mu\right) \left(x + \mu\right)}{r_1^3} - \frac{\mu \left( x+ \mu -1\right)}{r_2^3} \\
+											y - \frac{ \left(1 - \mu\right) y}{r_1^3} - \frac{\mu y}{r_2^3} \\
+											- \frac{ \left(1 - \mu\right) z}{r_1^3} - \frac{\mu z}{r_2^3}\end{array}\right]
+					= \left[\begin{array}{c} U_x \\ U_y \\ U_z\end{array} \right]
+\end{equation}
+\subsection{Periodic Orbits and Invariant Manifolds}
+Used to generate a Periodic orbit about a lagrange point
+Periodic orbits about the lagrange points
+\subsection{Poincar\`e Section}
+Intersection of states with a lower dimensional plane
+Introduce invariant manifolds
+
+\section{Geometric Variational Integrator}\label{sec:discrete_var}
+% description of variational integrator development
+Geometric numerical integration deals with numerical integration methods which preserve the geometric properties of the flow of a differential equation, such as invaraint properties and symplecticity.
+Variational integrators are constructed by discretizing Hamilton's principle rather than the continuous Euler-Lagrange equations~\cite{marsden2001}.
+As a result, integrators developed in this manner have the desirable properties that they are symplectic and momentum preserving.
+In addition, they exhibit improved energy behavior over long integration periods.
+A short background on the variational principle for mechanical systems is presented. 
+A discrete approximation of the action integral is presented and allows for construction of a variational integrator for the PCRTBP.
+
+\subsection{Variational Principle}
+Consider a continuous mechanical system described by the Lagrangian, \( L( q, \dot{q} ) \), for the generalized position and velocity \( q, \dot{q} \), respectively.
+In the standard approach of variational mechanics we form the action integral by integrating the continuous Lagrangian along a path \( q(t) \) that the system follows from time \( t = 0 \) to \( t = T \)~\cite{greenwood1988}.
+In the continuous time the action integral is defined as
+\begin{align}\label{eq:action_integral}
+	S = \int_{0}^T L\left( q, \dot{q}\right) \, dt
+\end{align}
+Hamilton's principle states that the actual path followed by a holonomic system results in a stationary action integral with respect to path variations for fixed endpoints.
+Taking the variation of~\cref{eq:action_integral} gives
+\begin{subequations}
+\begin{align}\label{eq:var_principle}
+	\delta S &= \int_{0}^T \deriv{L}{q} \delta q + \deriv{L}{\dot{q}} \delta \dot{q} \, dt \\
+		&= \int_{0}^T \deriv{L}{q} \delta q - \frac{d}{dt} \left( \deriv{L}{\dot{q}}\right) \delta q \, dt - \left. \left[ \deriv{L}{\dot{q}} \delta q\right] \right|_0^T \\
+	&= \int_{0}^T \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}}	\right)
+\end{align}
+\end{subequations} 
+where we have used integration by parts and the conditions \( \delta q(0) = 0 \) and \( \delta q(T) = 0\).
+For Hamilton's principle to be valid for all admissible variations \( \delta q \), the integrand of~\cref{eq:var_principle} must be zero for all \( t\), giving the continuous Euler-Lagrange Equations~\cite{lanczos1970}.
+\begin{align}\label{eq:euler-lagrange}
+	0 = \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}} \right) 
+\end{align}
+Hamilton's equations are derivable through the use of the Legendre transformation which is a mapping \( \left( q, \dot{q},t\right) \rightarrow \left(q, p, t \right) \) where \( p_i\) is the generalized momenta.
+\begin{align}\label{eq:legendre_transform}
+	p_i = \deriv{L}{\dot{q}}
+\end{align}
+In the continuous time case one can define the Hamiltonian
+\begin{align}\label{eq:hamiltonian}
+	H &= \sum_{i = 1}^N p_i \dot{q}_i - L \left( q_i,\dot{q}_i, t \right)
+\end{align}
+Applying~\cref{eq:legendre_transform} and taking the variation of~\cref{eq:hamiltonian} allows us to derive the equations of motion in Hamiltonian form
+\begin{align}\label{eq:hamilton_eq}
+	\dot{q}_i &= \deriv{H}{p_i} \\
+	\dot{p}_i &= - \deriv{H}{q_i} + Q_i \\
+	\deriv{L}{t} &= -\deriv{H}{t}
+\end{align}
+Both~\cref{eq:euler-lagrange,eq:hamilton_eq} result in equations of motion for the mechanical system and are equivalent via the Legendre transform.
+\Cref{eq:euler-lagrange} results in \( n \) second order differential equations while~\cref{eq:hamilton_eq} results in \( 2n \) first order differential equations.
+\subsection{Discrete Variational Mechanics}
+A discrete analogue of Hamilton's principle and the action integral is formed.
+Rather than taking a position \( q \) and velocity \( \dot{q} \), consider two positions \( q_0 \) and \( q_1 \) and a fixed time step \( h \in \R \).
+The two positions are points on the curve \( q(t) \) such that \( q_0 \approx q(0) \) and \( q_1 \approx q(h) \).
+A discrete time Lagrangian \( L_d( q_0, q_1) \) is formed which approximates the action integral between \( q_0 \) and \( q_1 \). 
+\begin{align}\label{eq:discrete_lagrangian}
+	L_d\left( q_0 , q_1 \right) \approx \int_{0}^{h} L \left( q , \dot{q} \right) \, dt
+\end{align}
+Since~\cref{eq:discrete_lagrangian} is calculated as a numerical integral an appropriate quadrature rule is required.
+There are multiple possible methods one can use to approximate the integral in~\cref{eq:discrete_lagrangian}.
+An appropriate approximation rule is determined based on the ease of implementation and accuracy desired.
+\begin{table}[htbp]\begin{center}\begin{tabular}{l|l}Rectangle & \( L_d(q_0,q_1) =L(q_0,\frac{q_1-q_0}{h}) h \)  \\ \hline
+Midpoint & \( L_d(q_0,q_1) = L(\frac{q_0 + q_1}{2},\frac{q_1 - q_0}{h}) h \) \\ \hline
+Trapezoidal & \( L_d(q_0, q_1) = \frac{1}{2} \left[ L(q_0, \frac{q_1 - q_0}{h} ) + L(q_1, \frac{q_1 - q_0 }{h} )\right] h \)
+\end{tabular} 
+\caption{Selected Quadrature Rules}\end{center}\label{tab:quadrature}\end{table}
+The rectangle rule is a first order accurate method and offers a straightforward implementation.
+The midpoint and trapezoidal rules are both second order accurate methods. 
+However, the midpoint rule results in an implicit form which adds further complexity to the equations of motion.
+In this work, the trapezoidal approximation is applied to the PCRTBP.
+
+Once an appropriate discrete Lagrangian is formed a discrete action sum is formed as the discrete analogue of~\cref{eq:action_integral}
+\begin{align}\label{eq:action_sum}
+	S_d = \sum_{k=0}^{N-1} L_d(q_k, q_k+1)
+\end{align}
+
+Discrete action sum leads to discrete euler-lagrange equations
+
+Discrete legendre transform allows for discrete Hamilton's eq
+
+Show Discrete equations of motion for PCRTBP
+
+Benefits of variational integrator and specific benefits in PCRTBP
+
+Plots of improved energy behavior over RK45
+
+\section{Optimal Control Formulation}\label{sec:optimal_control}
+Cost function
+
+Maximize a distance on the Poincar\`e section
+
+Necessary conditions for optimality
+
+Discrete version of costate equations of motion
+
+Avoid explicit inverse by using gauss jordan elimination
+
+Plot to compare continuous and discrete costate equations of motion
+
+\section{Numerical Example}\label{sec:simulation}
+Transfer between a periodic orbit and the Moon
+
+Multiple Shooting method (choose interior patch points to decrease sensitivity)
+
+Determine reachable set on Poincar\`e Section
+
+Intersection of the sets on section
+
+Minimization to a target state
+
+Show transfer to the moon
+
+Compare with the Ross work and the invariant manifold ( long time of flight)
+\section{Conclusion}\label{sec:conclusion}
+
+Summary of work
+
+concrete sentence of contribution and areas of future study
+
+\bibliographystyle{AAS_publication}   % Number the references.
+%\bibliography{references}   % Use references.bib to resolve the labels.
+\bibliography{library}
+
+
+
+\end{document}
