@@ -22,6 +22,9 @@
 \newcommand{\pyk}{\ensuremath{p_{y_k}}}
 \newcommand{\pykp}{\ensuremath{p_{y_{k+1}}}}
 
+\newcommand{\xdotkp}{\ensuremath{\dot{x}_{k+1}}}
+\newcommand{\ydotkp}{\ensuremath{\dot{y}_{k+1}}}
+
 \newcommand{\distonek}{\ensuremath{r_{1_k}}}
 \newcommand{\distonekp}{\ensuremath{r_{1_{k+1}}}}
 \newcommand{\disttwok}{\ensuremath{r_{2_{k}}}}
@@ -165,7 +168,7 @@ Application of the Euler-Lagrange equations results in following equations of mo
 \end{align}
 where the effective potential \( U\) is defined as
 \begin{equation}
-	U = \frac{1}{2} \left( x^2 y^2\right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}
+	U = \frac{1}{2} \left( x^2 + y^2\right) + \frac{1-\mu}{r_1} + \frac{\mu}{r_2}
 	\label{eq:eff_pot}
 \end{equation}
 and the control inputs are defined as \( u_x\) and \(u_y\).
@@ -194,25 +197,27 @@ Also known as the Jacobi constant, it is defined as a function of the position a
 	E\left( \bar{r} , \bar{v} \right) = \frac{1}{2}\left( \dot{x}^2 + \dot{y}^2\right) - U\left(x,y \right)
 	\label{eq:jacobi}
 \end{equation}
-The Jacobi integral~\eqref{eq:jacobi} divides the phase space into distinct regions based on the energy level of the body of interest.
+The Jacobi integral~\cref{eq:jacobi} divides the phase space into distinct regions based on the energy level of the spacecraft.
 Fixing the Jacobi integral to a constant defines zero velocity curves, which are the locus of points where the kinetic energy, and hence velocity vanishes.
 As seen in Figure~\ref{fig:energy_contour}, the phase space is divided into distinct realms based on the energy level.
 \begin{figure}[htbp]
-	\includegraphics[width=\textwidth]{energy_contours}
+	\centering
+	\includegraphics[width=0.5\textwidth]{energy_contours}
 	\caption{Contour Plot of Jacobi Integral}
 	\label{fig:energy_contour}
 \end{figure} 
 In the vicinity of \( m_1\) or \(m_2\) we have a potential well. 
-As the energy level increases we find that there are five critical points of the effective potential~\eqref{eq:eff_pot} where the slope is zero.
-Three collinear saddle points on the \(x\) axis and two symmetric points off the \(x\) axis.
+As the energy level increases we find that there are five critical points of the effective potential~\cref{eq:eff_pot} where the slope is zero.
+Three collinear saddle points on the \(x\) axis and two equilateral points.
 These equilibrium, or Lagrange points, are labeled \( L_i, i = 1, \hdots, 5 \) and are shown in Figure~\ref{fig:energy_contour}.
+The Jacobi integral is a valuable invariant property of the three body system that allows for greater insight into the motion of the spacecraft.
 
-\subsection{Periodic Orbits and Invariant Manifolds}
-Used to generate a Periodic orbit about a lagrange point
-Periodic orbits about the lagrange points
-\subsection{Poincar\`e Section}
-Intersection of states with a lower dimensional plane
-Introduce invariant manifolds
+%\subsection{Periodic Orbits and Invariant Manifolds}
+%Used to generate a Periodic orbit about a lagrange point
+%Periodic orbits about the lagrange points
+%\subsection{Poincar\`e Section}
+%Intersection of states with a lower dimensional plane
+%Introduce invariant manifolds
 
 \section{Geometric Variational Integrator}\label{sec:discrete_var}
 % description of variational integrator development
@@ -274,13 +279,13 @@ Since~\cref{eq:discrete_lagrangian} is calculated as a numerical integral an app
 There are multiple possible methods one can use to approximate the integral in~\cref{eq:discrete_lagrangian}.
 An appropriate approximation rule is determined based on the ease of implementation and accuracy desired.
 \begin{table}[htbp]
-\begin{center}\begin{tabular}{l|l}Rectangle & \( L_d(q_0,q_1) =L(q_0,\frac{q_1-q_0}{h}) h \)  \\ \hline
+\caption{Selected Quadrature Rules\label{tab:quadrature}}
+\begin{center}
+\begin{tabular}{l|l}Rectangle & \( L_d(q_0,q_1) =L(q_0,\frac{q_1-q_0}{h}) h \)  \\ \hline
 Midpoint & \( L_d(q_0,q_1) = L(\frac{q_0 + q_1}{2},\frac{q_1 - q_0}{h}) h \) \\ \hline
 Trapezoidal & \( L_d(q_0, q_1) = \frac{1}{2} \left[ L(q_0, \frac{q_1 - q_0}{h} ) + L(q_1, \frac{q_1 - q_0 }{h} )\right] h \)
 \end{tabular} 
-\caption{Selected Quadrature Rules}
 \end{center}
-\label{tab:quadrature}
 \end{table}
 The rectangle rule is a first order accurate method and offers a straightforward implementation.
 The midpoint and trapezoidal rules are both second order accurate methods. 
@@ -388,16 +393,17 @@ Over long simulation horizons or with the addition of small control inputs this 
 \end{figure}
 
 \section{Optimal Control Formulation}\label{sec:optimal_control}
-Optimal control theory has been widely applied to spacecraft trajectory design problems~\cite{peng2014,yue2009}.
-Indirect optimal control allows for the calculation of state and control histories that minimize a cost functional. 
-The concept of reachable sets has also seen widespread interest in the optimal control and system verifications communities. 
-Given an initial condition and fixed horizon, the reachable set is the set of states attainable subject to the control constraints, which is closely related to optimal control theory~\cite{lygeros2004,lygeros2002,mitchell2002}.
-In addition, the concept of reachability has also been more recently applied to the space domain~\cite{holzinger2012,holzinger2011,komendera2012a}. 
-In this work, we seek to combine the concepts of reachable states with that of the Poincar\'e section in order to design orbital transfers.
+In this section, an optimal control formulation is presented to determine and design transfers within the three body problem.
+The concept of reachable sets has seen increased interest by the spacecraft trajectory community.
+The reachability set is the set of all positions and velocities that can be achieved over a fixed time space from a defined initial condition, subject to the operational constraints of the spacecraft.
+Reachability analysis have been determined using optimal control techniques and level set methods~\cite{mitchell2002}.
+They play a critical role in aircraft avoidance and orbital planning.
+In this work, an optimal control problem is formulated to generate a reachable set of the spacecraft.
+The reachable sets are computed on an appropriate Poincar\`e section and are used to design an appropriate transfer trajectory.
 
 The cost function is defined as
 \begin{equation}
-	J = -\frac{1}{2} \left( \bar{x}(t_f) - \bar{x}_{n}(t_f)\right)^T 
+	J = -\frac{1}{2} \left( \bar{x}(N) - \bar{x}_{n}(N)\right)^T 
 	\left[
 	\begin{array}{cccc}
 		1 & 0& 0& 0 \\
@@ -406,42 +412,52 @@ The cost function is defined as
 		 0 & 0& 0& 0
 	\end{array}
 	\right]
-	\left( \bar{x}(t_f) - \bar{x}_{n}(t_f)\right)
+	\left( \bar{x}(N) - \bar{x}_{n}(N)\right)
 	\label{eq:cost}
 \end{equation}
-The term \( \bar{x}_n(t_f) \) is the final state of a control free trajectory while the term \( \bar{x}(t_f) \) is the final state under the influence of the control input.
+The term \( \bar{x}_n(N) \) is the final state of a control free trajectory while the term \( \bar{x}(N) \) is the final state under the influence of the control input.
 In this fashion, the aim is to maximize the distance of the final state from that of no control trajectory. 
 A chosen Poincar\'e section is defined through the use of appropriate terminal constraints
 \begin{subequations}
 \begin{align}
-     m_1 &= 0 = \frac{y(t_f) - L_{1y}}{x(t_f) - L_{1x}} - \tan{\alpha_d} \\ 
-    m_2&= 0 = \frac{\dot{x}(t_f) - \dot{x_n}(t_f) }{x(t_f) -x_n(t_f) } - \tan{\theta_d} \\
-    m_3 &= \begin{cases}
-    	-\dot{x}(t_f) &\leq 0 \quad \text{if } 0 \leq \theta_d \leq \pi \\
-		\dot{x}(t_f) &\leq 0 \quad \text{if } \pi \leq \theta_d \leq 2 \pi
-    \end{cases}  \\
+    m_1 &= 0 = \frac{y(N) - L_{1y}}{x(N) - L_{1x}} - \tan{\alpha_d} \\ 
+    m_2&= 0 = \frac{\dot{x}(N) - \dot{x_n}(N) }{x(N) -x_n(N) } - \tan{\theta_d} \\
 	 0 &\geq\bar{u}^T \bar{u} - u_{max}^2 
 \end{align}
     \label{eq:constraints}
 \end{subequations}
 where the angles \( \alpha_d\) and \( \theta_d\) define the Poincar\'e section and a specific direction upon the section, respectively. 
-The goal is to determine the control input \( \bar{u}(t)\) such that the cost function~\eqref{eq:cost} is minimized subject to the state equations of motion~\eqref{eq:cont_eom} and constraints~\eqref{eq:constraints}.
+The goal is to determine the control input \( \bar{u}_k\) such that the cost function~\cref{eq:cost} is minimized subject to the state equations of motion~\cref{eq:discrete_eom} and constraints~\cref{eq:constraints}.
 Application of the Euler-Lagrange equations allows us to derive the necessary conditions for optimality~\cite{bryson1975}.
+The discrete variational integrator in~\cref{eq:discrete_eoms} are used rather than the continuous time counterpart. 
+This results in a discrete optimal control problem and the discrete necessary conditions are given as
 \begin{subequations}\label{eq:necc_cond}
 \begin{align}
-	\dot{\lambda}^T &= - \frac{\partial H}{\partial x} \\
-	0 &=  \frac{\partial H}{\partial u} \\
-	0 &= \left[\frac{\partial \phi}{\partial x} + \beta^T \frac{\partial m}{\partial x} - \lambda^T(t_f) \right]^T \delta x(t_f) + \left. \left[ H^* + \frac{\partial \phi}{\partial t} \right] \right|_{t_f} \delta t
+	\lambda_{k+1}^T &= \lambda_k^T  \deriv{f_k}{\bar{x}_k}^{-1} \\
+	0 &=  \deriv{H_k}{\bar{u}_k} \\
+	0 &= \deriv{\phi}{\bar{x}_k}^T + \deriv{m}{\bar{x}_k}^T\beta  - \lambda^T(N)  
 \end{align}
 \end{subequations}
 where the Hamiltonian \(H\) is defined as
 \begin{equation}
-	H = \lambda_r^T \bar{v} + \lambda_v^T \begin{bmatrix}0 & 2\\-2 & 0 \end{bmatrix} \bar{v} + \lambda_v^T \begin{bmatrix} U_x \\ U_y \end{bmatrix} + \lambda_v^T \bar{u}
+	H_k = \lambda_k^T f(\bar{x}_k, \bar{u}_k) 
 	\label{eq:hamiltonian_opt}
 \end{equation}
-and \(\lambda \in \R^{n \times 1}\) is the costate and \(\beta \in \R^{3 \times 1} \) are the additional Lagrange multipliers associated with the terminal constraints in~\eqref{eq:constraints}.
+and \(\lambda \in \R^{n \times 1}\) is the costate and \(\beta \in \R^{2 \times 1} \) are the additional Lagrange multipliers associated with the terminal constraints in~\cref{eq:constraints}.
 This indirect optimal control formulation leads to a two point boundary value problem with split boundary conditions. 
 By sweeping the angle \( \theta_d \) one can approximate the reachable set on the Poincar\'e section subject to the bounded control input. 
+
+The costate equations of motion require the Jacobian of~\cref{eq:discrete_eoms} and is given by
+\begin{align}\label{eq:costate_eom}
+	\lambda_{k+1}^T = \lambda_k^T
+	\begin{bmatrix} 
+		f_{1_x} & f_{1_y} & f_{1_{\dot{x}}} & f_{1_{\dot{y}}} \\
+		f_{2_x} & f_{2_y} & f_{2_{\dot{x}}} & f_{2_{\dot{y}}} \\
+		f_{3_x} & f_{3_y} & f_{3_{\dot{x}}} & f_{3_{\dot{y}}} \\
+		f_{4_x} & f_{4_y} & f_{4_{\dot{x}}} & f_{4_{\dot{y}}}
+	\end{bmatrix} ^ {-1}
+\end{align}
+Further development of the elements of~\cref{eq:costate_eom} is given in the appendix.
 
 A numerical test case is presented to demonstrate this process and generate preliminary results.
 The goal is to determine a transfer trajectory between two planar periodic orbits of the Earth-Moon system. 
@@ -460,7 +476,7 @@ More general transfers would require multiple applications of this reachability 
 This recursive method allows one to enlarge the attainable states on the Poincar\'e section.
 General transfers are possible by combining powered segments along the invariant manifolds.
 
-Cost function
+
 
 Maximize a distance on the Poincar\`e section
 
@@ -496,6 +512,65 @@ concrete sentence of contribution and areas of future study
 %\bibliography{references}   % Use references.bib to resolve the labels.
 \bibliography{library}
 
-
-
+\appendix
+\section*{Appendix: Costate Equations of Motion}\label{sec:costate_appendix}
+The development of the costate equations of motions begins with determining the second order partial derivatives of the gravitational potential. 
+Due to the symmetry of partial derivatives only three terms are required.
+\begin{align}\label{eq:second_discrete_potential_grad}
+	U_{x\xk} &= \parenth{1-\mu} \bracket{\frac{1}{\distonek^3} - \frac{3 \parenth{\xk +\mu}^2}{\distonek^5}} + \mu \bracket{\frac{1}{\disttwok^3} - \frac{3 \parenth{\xk -1 + \mu}^2}{\disttwok^5}} \\
+	U_{y\yk} &= \parenth{1-\mu} \bracket{\frac{1}{\distonek^3} - \frac{3 \yk^2}{\distonek^5}} + \mu \bracket{\frac{1}{\disttwok^3} - \frac{3 \yk^2}{\disttwok^5}} \\
+	U_{x\yk} &= U_{y\xk} =  \frac{-3 \parenth{1-\mu} \parenth{\xk +\mu} \yk}{\distonek^3} - \frac{3\mu\yk\parenth{\xk-1+\mu}}{\disttwok^5}
+\end{align}
+The gradient of~\cref{eq:xkp} is given as
+\begin{subequations}\label{eq:xkp_grad}
+\begin{align}
+	f_{1_x} &= \frac{1}{1+h^2} \bracket{h^2 + 1 + \frac{h^2}{2} -\frac{h^2}{2} U_{y\xk} - \frac{h^2}{2}U_{x\xk}} \\
+	f_{1_y} &= \frac{1}{1+h^2} \bracket{ \frac{h^3}{2} -\frac{h^3}{2} U_{y\yk} - \frac{h^2}{2}U_{x\yk}} \\
+	f_{1_{\dot{x}}} &= \frac{h}{1+h^2} \\
+	f_{1_{\dot{y}}} &= \frac{h^2}{1+h^2} 
+\end{align}
+\end{subequations}
+The gradient of~\cref{eq:ykp} is given as
+\begin{subequations}\label{eq:ykp_grad}
+\begin{align}
+	f_{2_x} &= h -h f_{1_x} - \frac{h^2}{2} U_{y\xk} \\
+	f_{2_y} &= -h f_{1_y} + 1 + \frac{h^2}{2} - \frac{h^2}{2} U_{y\yk} \\
+	f_{2_{\dot{x}}} &= -h f_{1_{\dot{x}}} \\
+	f_{2_{\dot{y}}} &= h - h f_{1_{\dot{y}}} 
+\end{align}
+\end{subequations}
+The gradients of~\cref{eq:distonekp,eq:disttwokp} are given as
+\begin{subequations}\label{eq:distkp_grad}
+\begin{align}
+	\deriv{\distonekp}{\bar{x}} &= \parenth{\left( \xkp + \mu\right)^2 + \ykp^2}^{\frac{1}{2}} \bracket{\parenth{\xkp + \mu} f_{1_{\bar{x}}} + \ykp f_{2_{\bar{x}}}} \\
+	\deriv{\disttwokp}{\bar{x}} &= \parenth{\left( \xkp - 1 + \mu\right)^2 + \ykp^2}^{\frac{1}{2}} \bracket{\parenth{\xkp -1 + \mu} f_{1_{\bar{x}}} + \ykp f_{2_{\bar{x}}}} 
+\end{align}
+\end{subequations}
+The second order partial derivatives of the gravitational potential at \( k+1\) are given as
+\begin{subequations}
+\begin{align}
+	\deriv{U_{x\xkp}}{\bar{x}} &= \parenth{1-\mu}\bracket{\frac{1}{\distonekp^3} f_{1_{\bar{x}}} - \frac{3 \parenth{\xkp +mu}}{\distonekp^4} \deriv{\distonekp}{\bar{x}}} + \mu \bracket{\frac{1}{\disttwokp^3} f_{1_{\bar{x}}} - \frac{-3 \parenth{\xkp -1 + \mu}}{\disttwokp^4} \deriv{\disttwokp}{\bar{x}}} \\
+	\deriv{U_{y\xkp}}{\bar{x}} &= \parenth{1-\mu}\bracket{\frac{1}{\distonekp^3} f_{2_{\bar{x}}} - \frac{3 \ykp}{\distonekp^4} \deriv{\distonekp}{\bar{x}}} + \mu \bracket{\frac{1}{\disttwokp^3} f_{2_{\bar{x}}} - \frac{-3 \ykp}{\disttwokp^4} \deriv{\disttwokp}{\bar{x}}} 
+\end{align}
+\end{subequations}
+The gradient of~\cref{eq:xdotkp,eq:ydotkp} are given as
+\begin{subequations}\label{eq:xdotkp_grad}
+\begin{align}
+	f_{3_x} &= 2 f_{2_x} + \frac{h}{2} \parenth{f_{1_x} + 1} - \frac{h}{2} U_{x\xkp} - \frac{h}{2} U_{x\xk} \\
+	f_{3_y} &= -2 + 2 f_{2_x} + \frac{h}{2} f_{1_y} - \frac{h}{2} U_{x\ykp} -\frac{h}{2} U_{x\yk} \\
+	f_{3_{\dot{x}}} &= 1 + 2 f_{2_{\dot{x}}} + \frac{h}{2} f_{1_{\dot{x}}} - \frac{h}{2} U_{x\xdotkp}\\
+	f_{3_{\dot{y}}} &= 2 f_{2_{\dot{y}}}
+\end{align}
+\end{subequations}
+\begin{subequations}\label{eq:ydotkp_grad}
+\begin{align}
+	f_{4_x} &= 2 - 2 f_{1_x} + \frac{h}{2} f_{2_x}  - \frac{h}{2} U_{y\xkp} - \frac{h}{2} U_{y\xk} \\
+	f_{4_y} &= -2f_{1_y}  - \frac{h}{2} \parenth{f_{2_x} + 1} - \frac{h}{2} U_{y\ykp} -\frac{h}{2} U_{y\yk} \\
+	f_{4_{\dot{x}}} &= - 2 f_{1_{\dot{x}}} +  \frac{h}{2} f_{2_{\dot{x}}} - \frac{h}{2} U_{y\xdotkp}\\
+	f_{4_{\dot{y}}} &= 1 - 2 f_{1_{\dot{y}}} + \frac{h}{2} f_{2_{\dot{y}}} - \frac{h}{2} U_{y\ydotkp}
+\end{align}
+\end{subequations}
+These gradient equations are in a cascade type structure.
+\Cref{eq:ydotkp_grad,eq:xdotkp_grad} are functions of~\cref{eq:xdotkp,eq:ydotkp}.
+As a result, the accuracy of the Jacobian will tend to decrease as the first order approximation errors accumulate.
 \end{document}
