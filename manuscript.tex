@@ -241,7 +241,7 @@ Taking the variation of~\cref{eq:action_integral} gives
 \begin{align}\label{eq:var_principle}
 	\delta S &= \int_{0}^T \deriv{L}{q} \delta q + \deriv{L}{\dot{q}} \delta \dot{q} \, dt \\
 		&= \int_{0}^T \deriv{L}{q} \delta q - \frac{d}{dt} \left( \deriv{L}{\dot{q}}\right) \delta q \, dt - \left. \left[ \deriv{L}{\dot{q}} \delta q\right] \right|_0^T \\
-	&= \int_{0}^T \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}}	\right)
+	&= \int_{0}^T \deriv{L}{q} - \frac{d}{dt} \left( \deriv{L}{\dot{q}}	\right) \, dt
 \end{align}
 \end{subequations} 
 where we have used integration by parts and the conditions \( \delta q(0) = 0 \) and \( \delta q(T) = 0\).
@@ -326,7 +326,7 @@ The discrete Lagrangian is given by
 	L_d &= \frac{h}{2} \left( \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\yk \right)^2 + \left( \frac{\ykp - \yk}{h} + \xk \right)^2} + \frac{1 - \mu}{r_{1_k}} + \frac{\mu}{r_{2_k}} \right. \nonumber \\ 
 	&+ \left. \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\ykp \right)^2 + \left( \frac{\ykp - \yk}{h} + \xkp \right)^2} + \frac{1-\mu}{r_{1_{k+1}}} + \frac{\mu}{r_{2_{k+1}}}  \right)
 \end{align}
-Applying a discrete version of the Lagrange-d?Alembert principle allows for inclusion of an external control force on the system~\cite{marsden2001}.
+Applying a discrete version of the Lagrange-d'Alembert principle allows for inclusion of an external control force on the system~\cite{marsden2001}.
 Using~\cref{eq:discrete_legendre,eq:discrete_lagrangian} and some manipulation the equations of motion are given by
 \begin{subequations}\label{eq:discrete_eoms}
 \begin{align}
@@ -459,49 +459,80 @@ The costate equations of motion require the Jacobian of~\cref{eq:discrete_eoms} 
 \end{align}
 Further development of the elements of~\cref{eq:costate_eom} is given in the appendix.
 
-A numerical test case is presented to demonstrate this process and generate preliminary results.
-The goal is to determine a transfer trajectory between two planar periodic orbits of the Earth-Moon system. 
-The initial and target orbits are depicted in Figure~\ref{fig:opt_reach_trajectory} as the black periodic orbits.
-From the initial state, a series of optimal trajectories are generated which all intersect the desired Poincar\'e section.
-The intersection of these trajectories with the Poincar\'e section is shown in Figure~\ref{fig:north_poincare_reach}.
-The reachable set is discretely approximated as the area enclosed by the optimal trajectories.
-As the target state does not lie within the reachable set, another iteration of the optimal control calculation must be performed. 
-The location on the reachable surface which lies closest to the target state is used to generate the initial conditions for the next iteration.
-A second, or southern, trajectory calculation once again generates an approximation of the reachable set as shown in Figure~\ref{fig:south_reach}.
-In this iteration, that target state is enclosed within the reachable set. 
-\Cref{fig:opt_reach_trajectory} illustrates the completed optimal transfer trajectory.
-As the solution is composed of two distinct optimal solutions there exists a discontinuity at the switching point.
-This discontinuity is most evident in the control history shown in \Cref{fig:opt_reach_control}.
-More general transfers would require multiple applications of this reachability computation and additional Poincar\'e sections.
-This recursive method allows one to enlarge the attainable states on the Poincar\'e section.
-General transfers are possible by combining powered segments along the invariant manifolds.
-
-
-
-Maximize a distance on the Poincar\`e section
-
-Necessary conditions for optimality
-
-Discrete version of costate equations of motion
-
-Avoid explicit inverse by using gauss jordan elimination
-
-Plot to compare continuous and discrete costate equations of motion
+{\Large DISCUSS MULTIPLE SHOOTING}
 
 \section{Numerical Example}\label{sec:simulation}
-Transfer between a periodic orbit and the Moon
+A numerical simulation is presented to demonstrate the transfer procedure.
+The goal is to design a transfer trajectory from a planar periodic orbit about the \( L_1\) Lagrange point to a bounded orbit in the vicinity of the Moon.
+The target region is created by choosing an initial condition of \( x_0 = \begin{bmatrix}1.05 & 0 & 0 & 0.35 \end{bmatrix} \) with \( \mu = 0.0125 \).
+The initial state is propagated over a long period of \( t = \num{20} \) in non dimensional units which corresponds to approximately \num{1.5} years.
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[width=0.5\textwidth]{moon_orbit} % requires the graphicx package
+   \caption{Target Orbit Region}
+   \label{fig:moon_orbit}
+\end{figure}
+\Cref{fig:moon_orbit} shows that the desired trajectories remain in the vicinity of the moon in the rotating reference frame. 
+This type of orbit would be useful for a variety of mission scenarios.
+For example, a series of communication satellites could be placed in this type of orbit. 
+The bounded trajectories of the vehicles and constant line of sight to both the Moon and the Earth would allow for constant communication for future manned missions and potential habitats.
 
-Multiple Shooting method (choose interior patch points to decrease sensitivity)
+A periodic orbit is generated about the \( L_1 \) Lagrange point. 
+A Poincar\`e section is chosed to allow for design on a lower dimensional subspace.
+The section is defined along the \( x \) axis and intersects both the initial and target orbits.
+From the periodic orbit, a series of optimal trajectories are generated to approximate the reachable set.
+The trajectories are generated from a fixed initial state of \( x_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix} \) over a fixed time span of \( t_f = 1.4 \).
+By varying the angle \( \theta\) a different direction along the Poincar\`e section is maximized. 
+The intersection of the optimal trajectories as well as those of the target Moon orbit with the Poincar\`e section are shown in~\cref{fig:transfer_orbit}
+\begin{figure} 
+	\centering 
+	\begin{subfigure}[htbp]{0.5\textwidth} 
+		\includegraphics[width=\textwidth]{reach_trajectory} 
+		\caption{Controlled Trajectories} \label{fig:reach_trajectory} 
+	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
+	\begin{subfigure}[htbp]{0.5\textwidth} 
+		\includegraphics[width=\textwidth]{manifold_trajectory} 
+		\caption{Invariant Manifold} \label{fig:manifold_trajectory} 
+	\end{subfigure} 
+	
+	\begin{subfigure}[htbp]{0.5\textwidth} 
+		\includegraphics[width=\textwidth]{poincare_compare} 
+		\caption{Poincar\`e Section} \label{fig:poincare_compare} 
+	\end{subfigure} 
+	\caption{Transfer Trajectory}
+	\label{fig:transfer_orbit} 
+\end{figure}
+The optimal controlled trajectories from~\cref{fig:reach_trajectory} generate the reachable set denoted by the red markers in~\cref{fig:poincare_compare}.
+The blue points in~\cref{fig:poincare_compare} are the intersections of the target Moon orbit and the Poincar\`e section.
+As the reachable set intersects the target orbit a transfer is achievable.
+The intersection point is determined via a linear interpolation and a subsequent transfer trajectory is generated as shown by the green trajectory in~\cref{fig:reach_trajectory}.
 
-Determine reachable set on Poincar\`e Section
+As a comparison the method introduced in Reference~\citenum{koon2000} is implemented.
+The method is based on the invariant manifolds associated with the periodic orbits of the three body system.
+These invariant manifolds are a set of trajectories that either asymptotically arrive or depart the periodic orbit. 
+Linking the invariant manifolds of several periodic orbits, or coupled three body systems, has been used to generate orbital transfers.
+\Cref{fig:manifold_trajectory} shows the unstable invariant manifold associated with the initial periodic orbit. 
+The intersections on the Poincar\'e section show that a portion of the invariant manifold fails to intersect with the target orbit.
+In addition, the sections of the manifold that do intersect the target orbit have a much longer time of flight. 
+On average, the time along the invariant manifold is roughly twice that of the trajectory found via the reachable set computation.
+In addition, while the there exists an intersection on the Poincar\`e section there is no guarantee of all states intersecting.
+As a result, another \( \Delta V \) is required to transfer from the invariant manifold to the target orbit.
 
-Intersection of the sets on section
+%Avoid explicit inverse by using gauss jordan elimination
 
-Minimization to a target state
+%Plot to compare continuous and discrete costate equations of motion
 
-Show transfer to the moon
-
-Compare with the Ross work and the invariant manifold ( long time of flight)
+%Multiple Shooting method (choose interior patch points to decrease sensitivity)
+%
+%Determine reachable set on Poincar\`e Section
+%
+%Intersection of the sets on section
+%
+%Minimization to a target state
+%
+%Show transfer to the moon
+%
+%Compare with the Ross work and the invariant manifold ( long time of flight)
 \section{Conclusion}\label{sec:conclusion}
 
 Summary of work
