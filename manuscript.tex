@@ -13,7 +13,7 @@
 
 \input{macros}
 
-\PaperNumber{XX-XXX}
+\PaperNumber{15-757}
 
 
 
@@ -377,7 +377,22 @@ Over long simulation horizons or with the addition of small control inputs this 
 
 \section{Optimal Control Formulation}\label{sec:optimal_control}
 In this section, an optimal control formulation is presented to determine and design transfers within the three body problem.
-The concept of reachable sets has seen increased interest by the spacecraft trajectory community.
+This formulation is based on the concept of the reachability set on a Poincar\'e section.
+This method allows for one to easily determine potential transfer opportunities by finding set intersections on a lower dimensional space and greatly reduces the design process.
+The addition of continuous low thrust propulsion extends the control free design process presented in Reference~\citenum{koon2000} and allows for a greater range of potential transfers with a reduced time of flight.
+
+Reachability theory provides a framework to evaluate control capability and safety.  
+The reachable set contains all possible trajectories that are achievable over a fixed time horizon from a defined initial condition, subject to the operational constraints of the system.
+Reachability theory has been applied to aerospace systems such as collision avoidance, safety planning, and performance characterization.
+The theory formally supporting reachability has been extensively developed and is directly derived from optimal control theory~\cite{varaiya2000,lygeros2002,lygeros2004}.
+Computation the reachable set for a system involves solving the Hamilton-Jacobi partial differential equation~\cite{mitchell2002}.
+
+Reachability theory has more recently been applied to space systems~\cite{holzinger2009,komendera2012a}.
+Computation of reachable sets is critical to space situational awareness and rendezvous and proximity operations.
+Maintaining track custody of multiple, potentially maneuvering satellites in close proximity is a challenging problem.
+Reachable sets allows for the computation of bounds on the expected region of vehicles.
+
+% more detail on approach
 The reachability set is the set of all positions and velocities that can be achieved over a fixed time space from a defined initial condition, subject to the operational constraints of the spacecraft.
 Reachability analysis have been determined using optimal control techniques and level set methods~\cite{mitchell2002}.
 They play a critical role in aircraft avoidance and orbital planning.
