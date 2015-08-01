@@ -15,8 +15,6 @@
 
 \PaperNumber{15-757}
 
-
-
 \begin{document}
 
 \title{Systematic Design of Optimal Low-Thrust Transfers for the Three-Body Problem}
@@ -116,6 +114,7 @@ In this paper, the authors develop a systematic method of generating optimal tra
 Previous results in the design of optimal transfers have relied on suboptimal direct optimization methods and conventional integration techniques.
 This paper provides a discrete optimal control formulation to generate the reachability set on a Poincar\'e section.
 The use of a geometric integrators ensures numerical stability for long-duration orbit transfers.
+A numerical example is presented demonstrating a transfer trajectory from \( L_1 \) to the vicinity of the Moon and compared to the control-free design methodology.
 
 \section{System Model}\label{sec:pcrtbp}
 The system model is based on the planar circular restricted three body problem~(PCRTBP).
@@ -376,26 +375,73 @@ Over long simulation horizons or with the addition of small control inputs this 
 \end{figure}
 
 \section{Optimal Control Formulation}\label{sec:optimal_control}
+% introduce method
 In this section, an optimal control formulation is presented to determine and design transfers within the three body problem.
 This formulation is based on the concept of the reachability set on a Poincar\'e section.
 This method allows for one to easily determine potential transfer opportunities by finding set intersections on a lower dimensional space and greatly reduces the design process.
 The addition of continuous low thrust propulsion extends the control free design process presented in Reference~\citenum{koon2000} and allows for a greater range of potential transfers with a reduced time of flight.
 
+% discuss reachability and application to space system
 Reachability theory provides a framework to evaluate control capability and safety.  
 The reachable set contains all possible trajectories that are achievable over a fixed time horizon from a defined initial condition, subject to the operational constraints of the system.
 Reachability theory has been applied to aerospace systems such as collision avoidance, safety planning, and performance characterization.
-The theory formally supporting reachability has been extensively developed and is directly derived from optimal control theory~\cite{varaiya2000,lygeros2002,lygeros2004}.
-Computation the reachable set for a system involves solving the Hamilton-Jacobi partial differential equation~\cite{mitchell2002}.
+The theory formally supporting reachability has been extensively developed and is directly derivable from optimal control theory~\cite{varaiya2000,lygeros2002,lygeros2004}.
+Computation of the reachable set for a system involves solving the Hamilton-Jacobi partial differential equation~\cite{mitchell2002} or satisfying a dynamic programming principle.
+Analytical computation of reachable sets is an ongoing problem and is only possible for certain classes of systems.
+Typically, numerical methods are used to generate approximations of the reachability set, but are generally limited by the dimensionality of the problem.
+ 
+Reachability theory has recently been applied to space systems~\cite{holzinger2009,komendera2012a}.
+Computation of reachable sets is critical to space situational awareness, rendezvous and proximity operations, and orbit determination operations.
+Specifically maintaining accurate estimates of a spacecraft state over extended periods is not trivial.
+The challenge is increased for multiple spacecraft operating in close proximity or when there are long periods of time between measurements.
+Coupling the ability for continuous low-thrust propulsion between measurements increases the measurement association procedure complexity.
+Computing the reachability set given estimated states and control authorities allows one to better correlate subsequent measurements or determine sensor pointing regions in the event of a lost spacecraft. 
 
-Reachability theory has more recently been applied to space systems~\cite{holzinger2009,komendera2012a}.
-Computation of reachable sets is critical to space situational awareness and rendezvous and proximity operations.
-Maintaining track custody of multiple, potentially maneuvering satellites in close proximity is a challenging problem.
-Reachable sets allows for the computation of bounds on the expected region of vehicles.
+% introduce poincare section idea
+There exists a rich structure of tubes, or invariant manifolds, in the three body problem~\cite{koon2000,conley1968}.
+The manifold structure associated with periodic orbits about the \( L_1 \) and \( L_2 \) Lagrange points are critical to the understanding of the motion of spacecraft as well as comets/asteroids.
+In addition, the stable and unstable manifolds serve as the boundaries of the phase space region that allow for the transport between realms in a single three body system or between multiple three body systems.
+These invariant manifolds only exist as a result of the dynamic formulation of the three-body problem in a rotating reference frame. 
+In this way, it is possible to design trajectories that intersect the invariant manifolds and connect widely separated regions of the state space. 
+\Cref{fig:invariant_manifolds} shows some of the tubes, projected from the phase space onto the configuration space, associated with \( L_1 \) and \( L_2 \) periodic orbits in the Earth-Moon system. 
+This technique has been heavily investigated in Reference~\citenum{koon2000}, applied to operational missions in Reference~\citenum{koon1999}, and applied to potential multi-moon orbiter missions in Reference~\citenum{tanaka2011}.
+In addition, much recent work has focused on potential return missions to the Moon~\cite{zanzottera2012,campagnola2012,mingotti2011,ozimek2010a,mingotti2009}.
+\begin{figure}
+     \centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\columnwidth]{U1_Manifolds}
+                \caption{U1 Manifolds}
+                \label{fig:u1_manifolds}
+        \end{subfigure}%
+        ~%add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\columnwidth]{U2_Manifolds}
+                \caption{U2 Manifolds}
+                \label{fig:u2_manifolds}
+        \end{subfigure}
+        
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\columnwidth]{U3_Manifolds}
+                \caption{U3 Manifolds}
+                \label{fig:u3_manifolds}
+        \end{subfigure}%
+        ~%add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\columnwidth]{U4_Manifolds}
+                \caption{U4 Manifolds}
+                \label{fig:u4_manifolds}
+        \end{subfigure}
+        \caption{Invariant Manifolds for Planar Earth-Moon three body system}
+	\label{fig:invariant_manifolds}
+\end{figure}
+Another useful technique in the analysis of the free motion of dynamical systems is that of Poincar\'e section.
+The Poinar\'e surface reduces the state space from four to two dimensional for the planar three-body problem~\cite{koon2001}.
+This greatly eases the design process and allows for a simple planar visualization of the intersection of the invariant manifolds.
+The intersection of the invariant manifolds on a Poincar\`e section is central to determining the desired control-free trajectory.
 
-% more detail on approach
-The reachability set is the set of all positions and velocities that can be achieved over a fixed time space from a defined initial condition, subject to the operational constraints of the spacecraft.
-Reachability analysis have been determined using optimal control techniques and level set methods~\cite{mitchell2002}.
-They play a critical role in aircraft avoidance and orbital planning.
+% discuss how this work combines reachability and invariant manifolds/poincare section
 In this work, an optimal control problem is formulated to generate a reachable set of the spacecraft.
 The reachable sets are computed on an appropriate Poincar\`e section and are used to design an appropriate transfer trajectory.
 
@@ -455,10 +501,24 @@ The costate equations of motion require the Jacobian of~\cref{eq:discrete_eoms} 
 		f_{4_x} & f_{4_y} & f_{4_{\dot{x}}} & f_{4_{\dot{y}}}
 	\end{bmatrix} ^ {-1}
 \end{align}
-Further development of the elements of~\cref{eq:costate_eom} is given in the appendix.
+The derivation of~\cref{eq:cosate_eom} is given in Appendix A.
+In addition, the computation of~\cref{eq:costate_eom} requires inversion of the Jacobian matrix.
+This is a computationally expensive operation and prone to numerical error and instability.
+A method is presented in Appendix B to avoid this inversion and determine an explicit update map \( \lambda_k \to \lambda_{k+1} \).
 
-{\Large DISCUSS MULTIPLE SHOOTING}
-
+The optimal control formulation presented in this section results in a two point boundary value problem (TPBVP). 
+There exist many methods to solve TPBVPs such as gradient, quasilinearization, and shooting methods~\cite{bryson1975}.
+In this work, a multiple shooting method is implemented.
+Shooting methods are common in astrodynamic trajectory design problems and relatively simple to implement.
+In the shooting method, initial conditions are varied such that a terminal constraint is satisfied, similar to the way an archer modifies the bow in order to more accurately strike a target. 
+Rather than numerically integration over the entire time interval, multiple shooting segments the interval into several smaller sub-arcs.
+This  
+% tpbvp is solved using a shooting method (fsolve in matlab)
+% determine a design vector X of variables we need to determine
+% define a constraint vector G(X) that we need to satisfy
+% multiple shooting has interior points of continuity constraints
+% sensitivity of terminal state is used to correct the initial condition (cite a book/paper)
+% plot of multiple shooting ( stages)
 \section{Numerical Example}\label{sec:simulation}
 A numerical simulation is presented to demonstrate the transfer procedure.
 The goal is to design a transfer trajectory from a planar periodic orbit about the \( L_1\) Lagrange point to a bounded orbit in the vicinity of the Moon.
