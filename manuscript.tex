@@ -77,7 +77,7 @@ In addition, transfer orbits along an invariant manifold require large time of f
 The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
 
 % OBJECTIVE OF THIS WORK
-In order to address these issues the authors propose to develop a accurate and numerically stable method for long-term optimal orbital transfers.
+In order to address these issues the authors propose to develop an accurate and numerically stable method for long-term optimal orbital transfers.
 This approach will avoid the instability and dissipative effects of conventional integration schemes.
 In addition, the effects of low-thrust propulsion will be directly included in the integration method to ensure that extended duration optimal trajectories are computed correctly.
 This improved method will enable the derivation of a systematic method of generating optimal transfer orbits between arbitrary states.
@@ -175,7 +175,7 @@ Also known as the Jacobi constant, it is defined as a function of the position a
 	E\left( \bar{r} , \bar{v} \right) = \frac{1}{2}\left( \dot{x}^2 + \dot{y}^2\right) - U\left(x,y \right)
 	\label{eq:jacobi}
 \end{equation}
-The Jacobi integral~\cref{eq:jacobi} divides the phase space into distinct regions based on the energy level of the spacecraft.
+\Cref{eq:jacobi} divides the phase space into distinct regions based on the energy level of the spacecraft.
 Fixing the Jacobi integral to a constant defines zero velocity curves, which are the locus of points where the kinetic energy, and hence velocity vanishes.
 As seen in Figure~\ref{fig:energy_contour}, the phase space is divided into distinct realms based on the energy level.
 \begin{figure}[htbp]
@@ -270,11 +270,12 @@ The midpoint and trapezoidal rules are both second order accurate methods.
 However, the midpoint rule results in an implicit form which adds further complexity to the equations of motion.
 In this work, the trapezoidal approximation is applied to the PCRTBP.
 
-Once an appropriate discrete Lagrangian is formed a discrete action sum is formed as the discrete analogue of~\cref{eq:action_integral}
+Once an appropriate discrete Lagrangian is formed a discrete action sum is formed as the discrete analogue of~\cref{eq:action_integral}.
 \begin{align}\label{eq:action_sum}
 	S_d = \sum_{k=0}^{N-1} L_d(q_k, q_{k+1})
 \end{align}
-Once again, a discrete version of Hamilton's principle is applied to~\cref{eq:action_sum}, and applying summation by parts yields
+Once again a discrete version of Hamilton's principle is applied to~\cref{eq:action_sum}.
+Applying summation by parts yields
 \begin{subequations}
 \begin{align}\label{eq:dis_var_principle}
 	\delta S_d &= \sum_{k=0}^{N-1} \deriv{L_d(q_k, q_{k+1}}{q_k} \delta q_k + \deriv{L_d(q_k, q_{k+1})}{q_{k+1}} \delta q_{k+1} \\
@@ -285,7 +286,7 @@ For the discrete action sum to be stationary with respect to all admissible path
 \begin{align}\label{eq:discrete_euler-lagrange}
 	0 = \deriv{L_d(q_k, q_{k+1}}{q_k} + \deriv{L_d(q_{k-1}, q_k)}{q_{k+1}}
 \end{align}
-Similarly, a discrete version of the Legendre transformation, referred to as a discrete fiber derivative the equivalent Hamiltonian form expression is
+A discrete version of the Legendre transformation, referred to as a discrete fiber derivative, results in the equivalent Hamiltonian form expression. 
 \begin{subequations}\label{eq:discrete_legendre}
 \begin{align}
 	p_k &= \deriv{L_d(q_{k-1},q_k)}{q_{k+1}} = - \deriv{L_d(q_k, q_{k+1})}{q_k} \\
@@ -305,7 +306,7 @@ The discrete Lagrangian is given by
 	&+ \left. \frac{1}{2} \bracket{\left(  \frac{\xkp - \xk}{h} -\ykp \right)^2 + \left( \frac{\ykp - \yk}{h} + \xkp \right)^2} + \frac{1-\mu}{r_{1_{k+1}}} + \frac{\mu}{r_{2_{k+1}}}  \right)
 \end{align}
 Applying a discrete version of the Lagrange-d'Alembert principle allows for inclusion of an external control force on the system~\cite{marsden2001}.
-Using~\cref{eq:discrete_legendre,eq:discrete_lagrangian} and some manipulation the equations of motion are given by
+Using~\cref{eq:discrete_legendre,eq:discrete_lagrangian} and some manipulation, the equations of motion are given by
 \begin{subequations}\label{eq:discrete_eoms}
 \begin{align}
 	\xkp &= \frac{1}{1+ h^2} \bracket{h \dot{x}_k - h \yk + h^2 \dot{y}_k + h^2 \xk + \xk \parenth{1+ \frac{h^2}{2}} + \yk \parenth{h + \frac{h^3}{2}} - \frac{h^3}{2} U_{y_k} - \frac{h^2}{2} U_{x_k} } \label{eq:xkp}\\
@@ -336,7 +337,7 @@ The distances to each primary are defined as
 \end{subequations}
 Care must be taken during the implementation of~\cref{eq:discrete_eoms}.
 As~\cref{eq:discrete_potential_grad,eq:discrete_distance} are defined at both step \( k \) and \( k+1 \) they must be evaluated at both time steps.
-\Cref{eq:discrete_eoms} are implemented by first defining an initial state \( \bar{x}_k \) and control \( \bar{u}_k \).
+\Cref{eq:discrete_eoms} is implemented by first defining an initial state \( \bar{x}_k \) and control \( \bar{u}_k \).
 The distances and gravitational potential at step \( k \) are evaluated from~\cref{eq:distonek,eq:disttwok,eq:Uxk,eq:Uyk}.
 The discrete update steps in~\cref{eq:xkp,eq:ykp} are evaluated to generate \( \xkp \) and \( \ykp\).
 Next, the distances and gravitational potential at step \( k+1 \) are evaluated from~\cref{eq:distonekp,eq:disttwokp,eq:Uxkp,eq:Uykp}. 
@@ -345,15 +346,15 @@ This results in the complete discrete update map \( \bar{x}_k \to \bar{x}_{k+1} 
 
 \begin{figure} 
 	\centering 
-	\begin{subfigure}[h]{0.4\textwidth} 
+	\begin{subfigure}[h]{0.3\textwidth} 
 		\includegraphics[width=\textwidth]{./integrator_compare/trajectory} 
 		\caption{Trajectory} \label{fig:compare_trajectory} 
 	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-	\begin{subfigure}[htbp]{0.4\textwidth} 
+	\begin{subfigure}[htbp]{0.3\textwidth} 
 		\includegraphics[width=\textwidth]{./integrator_compare/components} 
 		\caption{Components} \label{fig:compare_components} 
 	\end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
-	\begin{subfigure}[htbp]{0.4\textwidth} 
+	\begin{subfigure}[htbp]{0.3\textwidth} 
 		\includegraphics[width=\textwidth]{./integrator_compare/energy} 
 		\caption{Energy} \label{fig:compare_energy} 
 	\end{subfigure} 
@@ -361,7 +362,7 @@ This results in the complete discrete update map \( \bar{x}_k \to \bar{x}_{k+1} 
 	\label{fig:integrator_compare} 
 \end{figure}
 A simulation comparing the variational integrator to a conventional Runge-Kutta method is given in~\cref{fig:integrator_compare}.
-A particle is simulated from an initial condition of \( \bar{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883]\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
+A particle is simulated from an initial condition of \( \bar{x}_0 = \begin{bmatrix} 0.75 & 0 & 0 & 0.2883\end{bmatrix}^T \) for \( t_f = 200 \approx 15\) years in the Earth-Moon system.
 The variational integrator uses a step size of \SI{47.22}{\second} while the Runge-Kutta method uses a variable step size implemented via ODE45 in Matlab.
 \Cref{fig:compare_trajectory} shows the trajectory of the spacecraft in the rotating reference frame for both integration schemes.
 Both integration schemes result in trajectories that are nearly identical and indistinguishable at this level.
@@ -375,7 +376,7 @@ Over long simulation horizons or with the addition of small control inputs this 
 
 \section{Optimal Control Formulation}\label{sec:optimal_control}
 % introduce method
-In this section, an optimal control formulation is presented to determine and design transfers within the three body problem.
+In this section, an optimal control formulation is presented to determine and design transfers within the three-body problem.
 This formulation is based on the concept of the reachability set on a Poincar\'e section.
 This method allows for one to easily determine potential transfer opportunities by finding set intersections on a lower dimensional space and greatly reduces the design process.
 The addition of continuous low thrust propulsion extends the control free design process presented in Reference~\citenum{koon2000} and allows for a greater range of potential transfers with a reduced time of flight.
@@ -385,7 +386,7 @@ Reachability theory provides a framework to evaluate control capability and safe
 The reachable set contains all possible trajectories that are achievable over a fixed time horizon from a defined initial condition, subject to the operational constraints of the system.
 Reachability theory has been applied to aerospace systems such as collision avoidance, safety planning, and performance characterization.
 The theory formally supporting reachability has been extensively developed and is directly derivable from optimal control theory~\cite{varaiya2000,lygeros2002,lygeros2004}.
-Computation of the reachable set for a system involves solving the Hamilton-Jacobi partial differential equation~\cite{mitchell2002} or satisfying a dynamic programming principle.
+Computation of the reachable set for a system involves solving the Hamilton-Jacobi partial differential equation or satisfying a dynamic programming principle.
 Analytical computation of reachable sets is an ongoing problem and is only possible for certain classes of systems.
 Typically, numerical methods are used to generate approximations of the reachability set, but are generally limited by the dimensionality of the problem.
  
@@ -435,14 +436,12 @@ In addition, much recent work has focused on potential return missions to the Mo
         \caption{Invariant Manifolds for Planar Earth-Moon three body system}
 	\label{fig:invariant_manifolds}
 \end{figure}
-Another useful technique in the analysis of the free motion of dynamical systems is that of Poincar\'e section.
-The Poinar\'e surface reduces the state space from four to two dimensional for the planar three-body problem~\cite{koon2001}.
+Another useful technique in the analysis of the free motion of dynamical systems is that of the Poincar\'e section.
+The Poinar\'e section reduces the state space from four to two dimensional for the planar three-body problem~\cite{koon2001}.
 This greatly eases the design process and allows for a simple planar visualization of the intersection of the invariant manifolds.
 The intersection of the invariant manifolds on a Poincar\`e section is central to determining the desired control-free trajectory.
-
-% discuss how this work combines reachability and invariant manifolds/poincare section
 In this work, an optimal control problem is formulated to generate a reachable set of the spacecraft.
-The reachable sets are computed on an appropriate Poincar\`e section and are used to design an appropriate transfer trajectory.
+The reachable set is computed on an appropriate Poincar\`e section and is used to design an appropriate transfer trajectory.
 
 The cost function is defined as
 \begin{equation}
@@ -458,8 +457,8 @@ The cost function is defined as
 	\left( \bar{x}(N) - \bar{x}_{n}(N)\right)
 	\label{eq:cost}
 \end{equation}
-The term \( \bar{x}_n(N) \) is the final state of a control free trajectory while the term \( \bar{x}(N) \) is the final state under the influence of the control input.
-In this fashion, the aim is to maximize the distance of the final state from that of no control trajectory. 
+The term \( \bar{x}_n(N) \) is the final state of a control-free trajectory while the term \( \bar{x}(N) \) is the final state under the influence of the control input.
+In this fashion, the aim is to maximize the distance of the final state from that of the control-free trajectory. 
 A chosen Poincar\'e section is defined through the use of appropriate terminal constraints
 \begin{subequations}
 \begin{align}
@@ -470,9 +469,9 @@ A chosen Poincar\'e section is defined through the use of appropriate terminal c
     \label{eq:constraints}
 \end{subequations}
 where the angles \( \alpha_d\) and \( \theta_d\) define the Poincar\'e section and a specific direction upon the section, respectively. 
-The goal is to determine the control input \( \bar{u}_k\) such that the cost function~\cref{eq:cost} is minimized subject to the state equations of motion~\cref{eq:discrete_eom} and constraints~\cref{eq:constraints}.
+The goal is to determine the control input \( \bar{u}_k\) such that the cost function~\cref{eq:cost} is minimized subject to the state equations of motion~\cref{eq:discrete_eoms} and constraints~\cref{eq:constraints}.
 Application of the Euler-Lagrange equations allows us to derive the necessary conditions for optimality~\cite{bryson1975}.
-The discrete variational integrator in~\cref{eq:discrete_eoms} are used rather than the continuous time counterpart. 
+The discrete variational integrator in~\cref{eq:discrete_eoms} is used rather than the continuous time counterpart. 
 This results in a discrete optimal control problem and the discrete necessary conditions are given as
 \begin{subequations}\label{eq:necc_cond}
 \begin{align}
@@ -500,7 +499,7 @@ The costate equations of motion require the Jacobian of~\cref{eq:discrete_eoms} 
 		f_{4_x} & f_{4_y} & f_{4_{\dot{x}}} & f_{4_{\dot{y}}}
 	\end{bmatrix} ^ {-1}
 \end{align}
-The derivation of~\cref{eq:cosate_eom} is given in Appendix A.
+The derivation of~\cref{eq:costate_eom} is given in Appendix A.
 In addition, the computation of~\cref{eq:costate_eom} requires inversion of the Jacobian matrix.
 This is a computationally expensive operation and prone to numerical error and instability.
 A method is presented in Appendix B to avoid this inversion and determine an explicit update map \( \lambda_k \to \lambda_{k+1} \).
@@ -523,7 +522,7 @@ This has the benefit of decreasing the numerical sensitivity of the final states
 A numerical simulation is presented to demonstrate the transfer procedure.
 The goal is to design a transfer trajectory from a planar periodic orbit about the \( L_1\) Lagrange point to a bounded orbit in the vicinity of the Moon.
 The target region is created by choosing an initial condition of \( x_0 = \begin{bmatrix}1.05 & 0 & 0 & 0.35 \end{bmatrix} \) with \( \mu = 0.0125 \).
-The initial state is propagated over a long period of \( t = \num{20} \) in non dimensional units which corresponds to approximately \num{1.5} years.
+The initial state is propagated over a period of \( t = \num{20} \) in non dimensional units which corresponds to approximately \num{1.5} years.
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=0.5\textwidth]{moon_orbit} % requires the graphicx package
@@ -560,9 +559,9 @@ The intersection of the optimal trajectories as well as those of the target Moon
 	\caption{Transfer Trajectory}
 	\label{fig:transfer_orbit} 
 \end{figure}
-The optimal trajectories, under the influence of the control input \( \bar{u} \), shown in~\cref{fig:reach_trajectory} generate the reachable set denoted by the red markers in~\cref{fig:poincare_compare}.
-The initial states lies on a periodic orbit about \( L_1 \).
-As a result, the intersection of the periodic orbit with the Poincar\`e section are two points corresponding to the two crossing of the orbit.
+The optimal trajectories, under the influence of the control input \( \bar{u} \), are shown in~\cref{fig:reach_trajectory}.
+Initially the spacecraft is assumed to lie on the periodic orbit.
+As a result, the intersection of this periodic orbit with the Poincar\`e section are two points corresponding to the two crossing of the orbit.
 The use of the continuous low thrust propulsion expands the reachable set to region bounded by the red markers in~\cref{fig:poincare_compare}.
 The reachable set is an ellipsoidal region with a major axis aligned along \( \theta \approx \ang{70} \).
 
@@ -585,7 +584,7 @@ The invariant manifolds are globalized using the eigenvectors of the Monodromy m
 The eigenvectors serve as a local approximation of the stable and unstable directions. 
 Perturbations along these directions serve to approximate the invariant manifolds.
 
-The unstable invariant manifold is numerically propagated to the same Poincar\`e section defined as the \( x \) axis.
+The unstable invariant manifold is numerically propagated to the same Poincar\`e section defined on the \( x \) axis.
 The intersection of the invariant manifold and the Poincar\`e section is denoted by the green markers in~\cref{fig:poincare_compare}.
 Only a single branch of the invariant manifold intersects with the ascending region of the target orbit.
 There are no intersections of the invariant manifold with the descending region of the target orbit.
@@ -611,7 +610,7 @@ The indirect optimal control formulation enables straightforward method of incor
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
 Lyapunov control theory, which has previously been applied to the two body problem~\cite{chang2002}, is being investigated in the hope of designing closed loop control schemes for this three-body scenario.
 This analysis has also assumed perfect attitude control and the ability to orient thrust in any direction.
-The addition of attitude dynamics and realistic pointing constraints would significantly improve the realism.
+The addition of attitude dynamics and realistic pointing constraints would significantly improve the applicability.
 
 \bibliographystyle{AAS_publication}   % Number the references.
 %\bibliography{references}   % Use references.bib to resolve the labels.
