@@ -42,17 +42,17 @@ A numerical simulation is provided developing a transfer from a \( L_1 \) period
 \section{Introduction}\label{sec:introduction}
 % MOTIVATION FOR LOW THRUST ORBITAL TRANSFER 
 Designing spacecraft trajectories is a classic and ongoing topic of research.
-With the current fiscal constraints there is an increased focused on technologies with a critical impact on mass.
+With the current fiscal constraints there is an increased focus on technologies with a critical impact on mass.
 Optimal expenditure of onboard propellant is critical to allowing a mission to continue for a longer period of time or to enable the launch of a less massive spacecraft.
 Electric propulsion systems offer a much greater specific impulse than chemical systems and are able to operate for extended periods of time.
 However, these electric propulsion systems typically have much less thrust than their chemical counterparts and therefore must operate over longer durations in order to impart the desired momentum change.
 Recent developments in miniature electric propulsion offer the potential for new research opportunities for small spacecraft~\cite{haque2013}.
-With reduced development intervals and decreased launch costs, small satellites have gained increased focus as a cost effective means of scientific and technologic development. 
+With reduced development intervals and decreased launch costs, small satellites have gained increased attention as a cost effective means of scientific and technologic development. 
 The merger of small satellites with miniature electric propulsion enables inexpensive and responsive missions requiring large changes in orbital energy or extended mission lifespan.
 With the potential for more demanding missions, even greater importance is placed on the mission design to ensure that optimal trajectories satisfy mission requirements. 
 In addition, non-Keplerian orbits and multi-body dynamics have been shown to allow for a much greater range of potential missions at a reduced energy cost~\cite{koon2000}.
 Future space missions are increasing in complexity and will require new classes of orbits that are not possible via the traditional conic approach~\cite{ross2006,gomez2001}.
-Optimally combining the dynamical structure of the three-body problem with low-thrust propulsion system is vital for future mission success.
+Optimally combining the dynamical structure of the three-body problem with low-thrust propulsion systems is vital for future mission success.
 
 % PRIOR WORK AND CHALLENGES
 There has been extensive research focused on optimal control for spacecraft orbital transfers in the three-body problem~\cite{mingotti2011,grebow2011}.
@@ -61,10 +61,11 @@ The state and/or control trajectories are parameterized and solved in the form o
 References~\citenum{mingotti2011} and~\citenum{grebow2011} use this direct approach in designing low-thrust transfers in the three-body problem.
 Alternatively, indirect methods apply calculus of variations to derive the necessary conditions for optimality. 
 This yields a lower dimensioned problem than the direct approach and algebraic conditions that, when satisfied, guarantee local optimality in contrast to direct methods which result in sub-optimal solutions.
-In addition, the optimization of orbital trajectories is a difficult problem. 
-The three-body problem is a highly nonlinear and chaotic enviornment. 
-Small changes in initial conditions result in large variations of the system trajectory. 
-As a result, the application of optimal control is difficult in practice and experiences numerical sensitivity to initial guesses.
+The application of optimal control for orbital trajectory design is nontrivial.
+The three-body system dynamics are nonlinear and exhibit chaotic behaviors. 
+Small changes in initial conditions result in large variations of the resulting system trajectory. 
+Therefore, any optimization routine is highly sensitive to the initial guess of the trajectory.
+Efficient numerical implementation is dependent on correct initial conditions as well as accurate numerical integration.
 
 Additionally, References~\citenum{mingotti2011} and~\citenum{grebow2011} implement the solutions using conventional Runge-Kutta integration techniques.
 These techniques suffer from numerical instability and energy drift behaviors which make them ill-suited for long-term propagation.
@@ -78,11 +79,11 @@ It has been shown that there exist multi-dimensional tubes, or invariant manifol
 Associated with periodic solutions of the three-body dynamics, these invariant manifolds allow for the spacecraft to traverse vast expanses of the state space with zero energy change. 
 However, the results presented are highly case specific and difficult to generalize to arbitrary transfers.
 Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system.
-In addition, transfer orbits along an invariant manifold require large time of flights which may be undesirable for time critical missions.
+In addition, transfer orbits along an invariant manifold require a large time of flight which may be undesirable for time critical missions.
 The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
 
 % OBJECTIVE OF THIS WORK
-In order to address these issues the authors propose to develop an accurate and numerically stable method for long-term optimal orbital transfers.
+In order to address these issues, the authors develop an accurate and numerically stable method for long-term optimal orbital transfers.
 This approach will avoid the instability and dissipative effects of conventional integration schemes.
 In addition, the effects of low-thrust propulsion will be directly included in the integration method to ensure that extended duration optimal trajectories are computed correctly.
 This improved method will enable the derivation of a systematic method of generating optimal transfer orbits between arbitrary states.
@@ -97,7 +98,7 @@ Application of the discrete Euler-Lagrange equations, or the discrete Legendre t
 This discrete update map, or variational integrator, shares the same geometric properties of the continuous time system and exhibits much better energy behavior than the traditional integration methods, especially over long time periods.
 A discrete optimal control problem is formulated from the discrete equations of motion.
 This approach, where explicit discretization occurs prior to optimization,  is in contrast to the typical method, where the equations of motion are implicitly discretized during the optimization procedure.
-Formulating the problem in this manner results in a more stable and accurate optimal solutions. 
+Formulating the problem in this manner results in more stable and accurate optimal solutions. 
 In indirect methods the optimal control problem is expressed as a two-point boundary value problem.
 Optimal solutions are generally sensitive to small variations in the initial multipliers.
 As a result, the numerical stability of sensitivity derivatives is critical to accuracy and computational performance. 
@@ -258,7 +259,7 @@ A discrete time Lagrangian \( L_d( q_0, q_1) \) is formed which approximates the
 \begin{align}\label{eq:discrete_lagrangian}
 	L_d\left( q_0 , q_1 \right) \approx \int_{0}^{h} L \left( q , \dot{q} \right) \, dt \, .
 \end{align}
-Since~\cref{eq:discrete_lagrangian} is calculated as a numerical integral an appropriate quadrature rule is required.
+Since~\cref{eq:discrete_lagrangian} is calculated as a numerical integral, an appropriate quadrature rule is required.
 There are multiple possible methods one can use to approximate the integral in~\cref{eq:discrete_lagrangian}.
 An appropriate approximation rule is determined based on the ease of implementation and accuracy desired.
 \begin{table}[htbp]
@@ -546,7 +547,7 @@ The costate equation of motion requires the Jacobian of~\cref{eq:discrete_eoms} 
 \end{align}
 The derivation of~\cref{eq:costate_eom} is given in Appendix A.
 In addition, the computation of~\cref{eq:costate_eom} requires inversion of the Jacobian matrix.
-This is a computationally expensive operation and prone to numerical error and instability.
+This is a computationally expensive operation that is prone to numerical error and instability.
 A method is presented in Appendix B to avoid this inversion and determine an explicit update map \( \lambda_k \to \lambda_{k+1} \).
 
 The optimal control formulation presented in this section results in a two point boundary value problem (TPBVP). 
@@ -574,7 +575,7 @@ The initial state is propagated over a period of \( t = \num{20} \) in non dimen
    \caption{Target Orbit Region}
    \label{fig:moon_orbit}
 \end{figure}
-\Cref{fig:moon_orbit} shows that the desired trajectories remain in the vicinity of the moon in the rotating reference frame. 
+\Cref{fig:moon_orbit} shows that the desired trajectories remain in the vicinity of the Moon in the rotating reference frame. 
 This type of orbit would be useful for a variety of mission scenarios.
 For example, a series of communication satellites could be placed in this type of orbit. 
 The bounded trajectories of the vehicles and constant line of sight to both the Moon and the Earth would allow for constant communication for future manned missions and potential habitats.
@@ -603,7 +604,7 @@ A Poincar\`e section is chosen to allow for design on a lower dimensional subspa
 The section is defined along the \( \hat{x} \) axis, or defined with \( \alpha = \ang{0} \) and intersects both the initial and target orbits.
 From the periodic orbit, a series of optimal trajectories are generated to approximate the reachable set.
 The trajectories are generated from a fixed initial state of \( x_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix} \) over a fixed time span of \( t_f = 1.4 \).
-By varying the angle \( \theta_d\) in~\cref{eq:constraints} a different direction along the Poincar\`e section is maximized. 
+By varying the angle \( \theta_d\) in~\cref{eq:constraints}, a different direction along the Poincar\`e section is maximized. 
 The intersection of the optimal trajectories as well as those of the target Moon orbit with the Poincar\`e section are shown in~\cref{fig:transfer_orbit}.
 \begin{figure} 
 	\centering 
@@ -624,7 +625,7 @@ The intersection of the optimal trajectories as well as those of the target Moon
 	\label{fig:transfer_orbit} 
 \end{figure}
 The optimal trajectories, under the influence of the control input \( \bar{u} \), are shown in~\cref{fig:reach_trajectory}.
-Initially the spacecraft is assumed to lie on the periodic orbit.
+Initially, the spacecraft is assumed to lie on the periodic orbit.
 As a result, the intersection of this periodic orbit with the Poincar\`e section are two points corresponding to the two crossing of the orbit.
 The use of the continuous low thrust propulsion expands the reachable set to region bounded by the red markers in~\cref{fig:poincare_compare}.
 The reachable set is an ellipsoidal region with a major axis aligned along \( \theta \approx \ang{70} \).
@@ -651,7 +652,7 @@ This transfer trajectory is denoted by the green path in~\cref{fig:reach_traject
 %
 %Compare with the Ross work and the invariant manifold ( long time of flight)
 \section{Conclusion}\label{sec:conclusion}
-In this work an optimal transfer process which combines concepts of reachability and Poincar\'e section is used to generate transfer between planar periodic orbits in the three-body problem.
+In this work, an optimal transfer process which combines concepts of reachability and Poincar\'e section is used to generate transfer between planar periodic orbits in the three-body problem.
 The Poincar\'e section allows for trajectory design on a lower dimensional phase space and simplifies the process.
 The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
