@@ -61,10 +61,12 @@ The state and/or control trajectories are parameterized and solved in the form o
 References~\citenum{mingotti2011} and~\citenum{grebow2011} use this direct approach in designing low-thrust transfers in the three-body problem.
 Alternatively, indirect methods apply calculus of variations to derive the necessary conditions for optimality. 
 This yields a lower dimensioned problem than the direct approach and algebraic conditions that, when satisfied, guarantee local optimality in contrast to direct methods which result in sub-optimal solutions.
-The application of optimal control for orbital trajectory design is nontrivial.
+
+The application of optimal control methods for orbital trajectory design is nontrivial.
 The three-body system dynamics are nonlinear and exhibit chaotic behaviors. 
 Small changes in initial conditions result in large variations of the resulting system trajectory. 
-Therefore, any optimization routine is highly sensitive to the initial guess of the trajectory.
+Therefore, any optimization routine is highly sensitive to the initial guess.
+In addition, insight into the problem or intuition on the part of the designer is often required to determine initial conditions that will converge which achieve satisfactory results.
 Efficient numerical implementation is dependent on correct initial conditions as well as accurate numerical integration.
 
 Additionally, References~\citenum{mingotti2011} and~\citenum{grebow2011} implement the solutions using conventional Runge-Kutta integration techniques.
@@ -106,7 +108,8 @@ The use of geometric integrators, which do not suffer the numerical dissipation 
 
 A discrete optimal control problem is formulated to determine the reachability set on a Poincar\'e section.
 Given an initial condition and fixed time horizon, the reachable set is the set of states attainable, subject to the operational constraints of the spacecraft. 
-Generation of this reachability set allows for the extension of the previous control-free missions in the three-body problem. 
+Generation of this reachability set allows for the extension of the previous control-free missions in the three-body problem.
+In addition, the generation of the reachable set allows for a more simple method of determining initial conditions and eases the burden on the designer. 
 The addition of low-thrust propulsion affords the ability to enlarge the reachable set as compared to the control-free case.
 Maximization of the reachability set, on an appropriately chosen Poincar\'e section, allows for a greater space of potential transfer trajectories.
 The use of the Poincar\`e section allows for design on a lower dimensional space and simplifies the design process.
@@ -449,13 +452,16 @@ In addition, much recent work has focused on potential return missions to the Mo
         \caption{Poincar\'e Sections for Planar Earth-Moon three-body system}
 	\label{fig:poincare_sections}
 \end{figure}
+
 Another useful technique in the analysis of the free motion of dynamical systems is that of the Poincar\'e section.
-The Poincar\'e section is the intersection of a periodic orbit of a dynamical system with a lower dimensional space transverse to the flow.
+The Poincar\'e section is the intersection of a periodic orbit of a dynamical system with a lower dimensional sub-space transverse to the flow.
 This allows for greater insight into the stability and dynamics of periodic solutions of dynamic system. 
-A periodic solution is represented as a fixed point on the Poincar\'e section.
+Points are drawn as the periodic solution intersects the Poincar\'e section.
+Great insight and structure into the dynamical system is typically available through use of Poincar\'e section
 For example,\cref{fig:poincare_sections} shows the intersections of the invariant manifolds of~\cref{fig:invariant_manifolds} with the Poincar\'e sections defined.
 The Poinar\'e section and the Jacobi integral reduce the state space from four to two dimensions for the planar three-body problem~\cite{koon2001}.
 This greatly eases the design process and allows for a simple planar visualization of the intersection of the invariant manifolds.
+Intersecting states are easy to determine and allow for transfers between invariant manifolds.
 
 The intersection of the invariant manifolds on a Poincar\`e section is central to determining the desired control-free trajectory.
 However, the results previously developed are highly case specific and difficult to generalize to arbitrary transfers.
@@ -464,7 +470,6 @@ In addition, transfer orbits along an invariant manifold require large time of f
 The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
 In this work, an optimal control problem is formulated to generate a reachable set of the spacecraft.
 The reachable set is computed on an appropriate Poincar\`e section and is used to design an appropriate transfer trajectory.
-
 \section{Optimal Control Formulation}\label{sec:optimal_control}
 % introduce method
 In this section, an optimal control formulation is presented to determine and design transfers within the three-body problem.
@@ -639,7 +644,6 @@ Using~\cref{eq:jacobi} and the intersection state the final component \( \dot{y}
 This results in a complete target state \( \bar{x}_t \) which lies on the reachable set and on the target orbit. 
 A final optimal trajectory is generated such that the \( \bar{x}(N) = \bar{x}_t \).
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_trajectory}.
-
 
 
 %Determine reachable set on Poincar\`e Section
