@@ -30,8 +30,8 @@ Taeyoung Lee\thanks{Associate Professor, Mechanical and Aerospace Engineering, G
 \begin{abstract}
 A computational approach is developed for the design of continuous low thrust transfers in the planar circular restricted three-body problem.
 The transfer design method of invariant manifolds is extended with the addition of continuous low thrust propulsion.
-A reachable set region is generated and used to determine transfer opportunities, analogous to the intersection of invariant manifolds.
-The reachable set is developed on a lower dimensional Poincar\'e section and used to design transfer trajectories. 
+A reachable region is generated and it is used to determine transfer opportunities, analogous to the intersection of invariant manifolds.
+The reachable set is developed on a lower dimensional \Poincare section and used to design transfer trajectories. 
 %Computational geometric mechanics allows for the development of variational integrators and a discrete optimal control problem.
 This is solved numerically as a discrete optimal control problem using a variational integrator.
 This provides for a geometrically exact and numerically efficient method for the motion in the three-body problem.
@@ -81,11 +81,11 @@ It has been shown that there exist multi-dimensional tubes, or invariant manifol
 Associated with periodic solutions of the three-body dynamics, these invariant manifolds allow for the spacecraft to traverse vast expanses of the state space with zero energy change. 
 However, the results presented are highly case specific and difficult to generalize to arbitrary transfers.
 Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system.
-In addition, transfer orbits along an invariant manifold require a large time of flight which may be undesirable for time critical missions.
+In addition, transfer orbits along an invariant manifold require a longer time of flight which may be undesirable for time critical missions.
 The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
 
 % OBJECTIVE OF THIS WORK
-In order to address these issues, the authors develop an accurate and numerically stable method for long-term optimal orbital transfers.
+In order to address these issues, the authors propose an accurate and numerically stable method for long-term optimal orbital transfers.
 This approach will avoid the instability and dissipative effects of conventional integration schemes.
 In addition, the effects of low-thrust propulsion will be directly included in the integration method to ensure that extended duration optimal trajectories are computed correctly.
 This improved method will enable the derivation of a systematic method of generating optimal transfer orbits between arbitrary states.
@@ -106,19 +106,19 @@ Optimal solutions are generally sensitive to small variations in the initial mul
 As a result, the numerical stability of sensitivity derivatives is critical to accuracy and computational performance. 
 The use of geometric integrators, which do not suffer the numerical dissipation of conventional integration methods, results in a more robust and efficient solution.
 
-A discrete optimal control problem is formulated to determine the reachability set on a Poincar\'e section.
+A discrete optimal control problem is formulated to determine the reachability set on a \Poincare section.
 Given an initial condition and fixed time horizon, the reachable set is the set of states attainable, subject to the operational constraints of the spacecraft. 
 Generation of this reachability set allows for the extension of the previous control-free missions in the three-body problem.
-In addition, the generation of the reachable set allows for a more simple method of determining initial conditions and eases the burden on the designer. 
+In addition, the generation of the reachable set allows for a more systematic method of determining initial conditions and eases the burden on the designer. 
 The addition of low-thrust propulsion affords the ability to enlarge the reachable set as compared to the control-free case.
-Maximization of the reachability set, on an appropriately chosen Poincar\'e section, allows for a greater space of potential transfer trajectories.
-The use of the Poincar\`e section allows for design on a lower dimensional space and simplifies the design process.
-Once an intersection is determined on the Poincar\`e section a transfer is calculated.
+Maximization of the reachability set, on an appropriately chosen \Poincare section, allows for a greater space of potential transfer trajectories.
+The use of the \Poincare section allows for design on a lower dimensional space and simplifies the design process.
+Once an intersection is determined on the \Poincare section a transfer is calculated.
 
 % SUMMARY OF CONTRIBUTIONS
-In this paper, the authors develop a systematic method of generating optimal transfer orbits in the three-body problem.
+In short, the authors present a systematic method of generating optimal transfer orbits in the three-body problem.
 Previous results in the design of optimal transfers have relied on suboptimal direct optimization methods and conventional integration techniques.
-This paper provides a discrete optimal control formulation to generate the reachability set on a Poincar\'e section.
+This paper provides a discrete optimal control formulation to generate the reachability set on a \Poincare section.
 The use of a geometric integrators ensures numerical stability for long-duration orbit transfers.
 A numerical example is presented demonstrating a transfer trajectory from \( L_1 \) to the vicinity of the Moon and compared to the control-free design methodology.
 \section{System Model}\label{sec:pcrtbp}
@@ -187,22 +187,21 @@ Also known as the Jacobi constant, it is defined as a function of the position a
 \Cref{eq:jacobi} divides the phase space into distinct regions based on the energy level of the spacecraft.
 Fixing the Jacobi integral to a constant defines zero velocity curves, which are the locus of points where the kinetic energy, and hence velocity vanishes.
 As seen in Figure~\ref{fig:energy_contour}, the phase space is divided into distinct realms based on the energy level.
+In the vicinity of \( m_1\) or \(m_2\) there exists a potential well. 
+As the energy level increases there are five critical points of the effective potential~\cref{eq:eff_pot} where the slope is zero.
+Three collinear saddle points on the \(x\) axis and two equilateral points.
+These equilibrium, or Lagrange points, are labeled \( L_i, i = 1, \hdots, 5 \) and are shown in Figure~\ref{fig:energy_contour}.
+The Jacobi integral is a valuable invariant property of the three-body system that allows for greater insight into the motion of the spacecraft.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.5\textwidth]{energy_contours}
 	\caption{Contour Plot of Jacobi Integral}
 	\label{fig:energy_contour}
 \end{figure} 
-In the vicinity of \( m_1\) or \(m_2\) there exists a potential well. 
-As the energy level increases there are five critical points of the effective potential~\cref{eq:eff_pot} where the slope is zero.
-Three collinear saddle points on the \(x\) axis and two equilateral points.
-These equilibrium, or Lagrange points, are labeled \( L_i, i = 1, \hdots, 5 \) and are shown in Figure~\ref{fig:energy_contour}.
-The Jacobi integral is a valuable invariant property of the three-body system that allows for greater insight into the motion of the spacecraft.
-
 %\subsection{Periodic Orbits and Invariant Manifolds}
 %Used to generate a Periodic orbit about a lagrange point
 %Periodic orbits about the lagrange points
-%\subsection{Poincar\`e Section}
+%\subsection{\Poincare Section}
 %Intersection of states with a lower dimensional plane
 %Introduce invariant manifolds
 
@@ -363,11 +362,11 @@ This results in the complete discrete update map \( \bar{x}_k \to \bar{x}_{k+1} 
 	\end{subfigure}~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
 	\begin{subfigure}[htbp]{0.3\textwidth} 
 		\includegraphics[width=\textwidth]{./integrator_compare/components} 
-		\caption{Components} \label{fig:compare_components} 
+		\caption{State \( \parenth{x , y, \dot{x}, \dot{y}}\)} \label{fig:compare_components} 
 	\end{subfigure} ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. %(or a blank line to force the subfigure onto a new line) 
 	\begin{subfigure}[htbp]{0.3\textwidth} 
 		\includegraphics[width=\textwidth]{./integrator_compare/energy} 
-		\caption{Energy} \label{fig:compare_energy} 
+		\caption{Jacobi Integral} \label{fig:compare_energy} 
 	\end{subfigure} 
 	\caption{Integrator Comparison}
 	\label{fig:integrator_compare} 
@@ -385,7 +384,7 @@ However, the conventional Runge-Kutta method demonstrates a clear energy drift o
 Over long simulation horizons or with the addition of small control inputs this poor energy behavior limits the applicability of conventional techniques.
 
 \section{Invariant Manifolds} \label{sec:invariant_manifold}
-% introduce poincare section idea
+% introduce \Poincare section idea
 There exists a rich structure of tubes, or invariant manifolds, in the three-body problem~\cite{koon2000,conley1968}.
 The manifold structure associated with periodic orbits about the \( L_1 \) and \( L_2 \) Lagrange points are critical to the understanding of the motion of spacecraft as well as comets/asteroids.
 In addition, the stable and unstable manifolds serve as the boundaries of the phase space region that allow for the transport between realms in a single three-body system or between multiple three-body systems.
@@ -449,32 +448,32 @@ In addition, much recent work has focused on potential return missions to the Mo
                 \caption{U4 Section}
                 \label{fig:u4_poincare}
         \end{subfigure}
-        \caption{Poincar\'e Sections for Planar Earth-Moon three-body system}
+        \caption{\Poincare Sections for Planar Earth-Moon three-body system}
 	\label{fig:poincare_sections}
 \end{figure}
 
-Another useful technique in the analysis of the free motion of dynamical systems is that of the Poincar\'e section.
-The Poincar\'e section is the intersection of a periodic orbit of a dynamical system with a lower dimensional sub-space transverse to the flow.
+Another useful technique in the analysis of the free motion of dynamical systems is that of the \Poincare section.
+The \Poincare section is the intersection of a periodic orbit of a dynamical system with a lower dimensional sub-space transverse to the flow.
 This allows for greater insight into the stability and dynamics of periodic solutions of dynamic system. 
-Points are drawn as the periodic solution intersects the Poincar\'e section.
-Great insight and structure into the dynamical system is typically available through use of Poincar\'e section
-For example,\cref{fig:poincare_sections} shows the intersections of the invariant manifolds of~\cref{fig:invariant_manifolds} with the Poincar\'e sections defined by the black line segments.
-The Poinar\'e section and the Jacobi integral reduce the state space from four to two dimensions for the planar three-body problem~\cite{koon2001}.
+Points are drawn as the periodic solution intersects the \Poincare section.
+Great insight and structure into the dynamical system is typically available through use of \Poincare section.
+For example, \cref{fig:poincare_sections} shows the intersections of the invariant manifolds of~\cref{fig:invariant_manifolds} with the \Poincare sections defined by the black line segments.
+The \Poincare section and the Jacobi integral reduce the state space from four to two dimensions for the planar three-body problem~\cite{koon2001}.
 This greatly eases the design process and allows for a simple planar visualization of the intersection of the invariant manifolds.
 Intersecting states are easy to determine and allow for transfers between invariant manifolds.
 
-The intersection of the invariant manifolds on a Poincar\`e section is central to determining the desired control-free trajectory.
+The intersection of the invariant manifolds on a \Poincare section is central to determining the desired control-free trajectory.
 However, the results previously developed are highly case specific and difficult to generalize to arbitrary transfers.
 Also, these results are based on control-free trajectories which rely on the underlying structure of the three-body system.
 In addition, transfer orbits along an invariant manifold require large time of flights which may be undesirable for time critical missions.
 The addition of low-thrust propulsion offers the potential of reduced transit times and the ability to depart from the free motion trajectory to allow for increased transfer opportunities. 
 In this work, an optimal control problem is formulated to generate a reachable set of the spacecraft.
-The reachable set is computed on an appropriate Poincar\`e section and is used to design an appropriate transfer trajectory.
+The reachable set is computed on an appropriate \Poincare section and is used to design an appropriate transfer trajectory.
 \section{Optimal Control Formulation for Reachability Set}\label{sec:optimal_control}
 % introduce method
 In this section, an optimal control formulation is presented to determine and design transfers within the three-body problem.
 The application of variational integrators to optimal control problems is referred to as computational geometric optimal control.
-This formulation is based on the concept of the reachability set on a Poincar\'e section.
+This formulation is based on the concept of the reachability set on a \Poincare section.
 This method allows for one to easily determine potential transfer opportunities by finding set intersections on a lower dimensional space and greatly reduces the design process.
 The addition of continuous low thrust propulsion extends the control free design process presented in Reference~\citenum{koon2000} and allows for a greater range of potential transfers with a reduced time of flight.
 
@@ -510,7 +509,7 @@ The cost function is defined as
 \end{equation}
 The term \( \bar{x}_n(N) \) is the final state of a control-free trajectory while the term \( \bar{x}(N) \) is the final state under the influence of the control input.
 In this fashion, the aim is to maximize the distance of the final state from that of the control-free trajectory. 
-A chosen Poincar\'e section is defined through the use of appropriate terminal constraints given by
+A chosen \Poincare section is defined through the use of appropriate terminal constraints given by
 \begin{subequations}
 \begin{align}
     m_1 &= 0 = \frac{y(N) - L_{1y}}{x(N) - L_{1x}} - \tan{\alpha_d} \, , \\ 
@@ -519,7 +518,7 @@ A chosen Poincar\'e section is defined through the use of appropriate terminal c
 \end{align}
     \label{eq:constraints}
 \end{subequations}
-where the angles \( \alpha_d\) and \( \theta_d\) define the Poincar\'e section and a specific direction upon the section, respectively. 
+where the angles \( \alpha_d\) and \( \theta_d\) define the \Poincare section and a specific direction upon the section, respectively. 
 The goal is to determine the control input \( \bar{u}_k\) such that the cost function~\cref{eq:cost} is minimized subject to the state equations of motion~\cref{eq:discrete_eoms} and constraints~\cref{eq:constraints}.
 Application of the Euler-Lagrange equations allows us to derive the necessary conditions for optimality~\cite{bryson1975}.
 The discrete variational integrator in~\cref{eq:discrete_eoms} is used rather than the continuous time counterpart. 
@@ -538,7 +537,7 @@ where the Hamiltonian \(H\) is defined as
 \end{equation}
 and \(\lambda \in \R^{4 \times 1}\) is the costate and \(\beta \in \R^{2 \times 1} \) are the additional Lagrange multipliers associated with the terminal constraints in~\cref{eq:constraints}.
 This indirect optimal control formulation leads to a two point boundary value problem with split boundary conditions. 
-By sweeping the angle \( \theta_d \) one can approximate the reachable set on the Poincar\'e section subject to the bounded control input. 
+By sweeping the angle \( \theta_d \) one can approximate the reachable set on the \Poincare section subject to the bounded control input. 
 
 The costate equation of motion requires the Jacobian of~\cref{eq:discrete_eoms} and is given by
 \begin{align}\label{eq:costate_eom}
@@ -594,23 +593,23 @@ The invariant manifolds are globalized using the eigenvectors of the Monodromy m
 The eigenvectors serve as a local approximation of the stable and unstable directions. 
 Perturbations along these directions serve to approximate the invariant manifolds.
 
-The unstable invariant manifold is numerically propagated to the same Poincar\`e section defined on the \( \hat{x} \) axis.
-The intersection of the invariant manifold and the Poincar\`e section is denoted by the green markers in~\cref{fig:poincare_compare}.
+The unstable invariant manifold is numerically propagated to the same \Poincare section defined on the \( \hat{x} \) axis.
+The intersection of the invariant manifold and the \Poincare section is denoted by the green markers in~\cref{fig:poincare_compare}.
 Only a single branch of the invariant manifold intersects with the ascending region of the target orbit.
 There are no intersections of the invariant manifold with the descending region of the target orbit.
 The numerical values associated with the green points denote the required time of flight along the invariant manifold in non-dimensional units.
 A transfer along the invariant manifold requires on average \( t_f \approx 3.1 \) as compared to \( t_f \approx 1.4 \) of a transfer using low thrust propulsion and the reachable set.
 Finally, it should be noted that an additional maneuver would be required for a transfer using the invariant manifold.
-The intersection on the Poincar\`e section only shows that the \( x \text{ and } \dot{x} \) components intersect.
+The intersection on the \Poincare section only shows that the \( x \text{ and } \dot{x} \) components intersect.
 An additional instantaneous \( \Delta V \) would be required to transfer from the invariant manifold to the target.
 
 A periodic orbit is generated about the \( L_1 \) Lagrange point. 
-A Poincar\`e section is chosen to allow for design on a lower dimensional subspace.
+A \Poincare section is chosen to allow for design on a lower dimensional subspace.
 The section is defined along the \( \hat{x} \) axis, or defined with \( \alpha = \ang{0} \) and intersects both the initial and target orbits.
 From the periodic orbit, a series of optimal trajectories are generated to approximate the reachable set.
 The trajectories are generated from a fixed initial state of \( x_0 = \begin{bmatrix}0.8156 & 0 & 0 & 0.1922 \end{bmatrix} \) over a fixed time span of \( t_f = 1.4 \).
-By varying the angle \( \theta_d\) in~\cref{eq:constraints}, a different direction along the Poincar\`e section is maximized. 
-The intersection of the optimal trajectories as well as those of the target Moon orbit with the Poincar\`e section are shown in~\cref{fig:transfer_orbit}.
+By varying the angle \( \theta_d\) in~\cref{eq:constraints}, a different direction along the \Poincare section is maximized. 
+The intersection of the optimal trajectories as well as those of the target Moon orbit with the \Poincare section are shown in~\cref{fig:transfer_orbit}.
 \begin{figure} 
 	\centering 
 	\begin{subfigure}[htbp]{0.5\textwidth} 
@@ -631,14 +630,14 @@ The intersection of the optimal trajectories as well as those of the target Moon
 \end{figure}
 The optimal trajectories, under the influence of the control input \( \bar{u} \), are shown in~\cref{fig:reach_trajectory}.
 Initially, the spacecraft is assumed to lie on the periodic orbit.
-As a result, the intersection of this periodic orbit with the Poincar\`e section are two points corresponding to the two crossing of the orbit.
+As a result, the intersection of this periodic orbit with the \Poincare section are two points corresponding to the two crossing of the orbit.
 The use of the continuous low thrust propulsion expands the reachable set to region bounded by the red markers in~\cref{fig:poincare_compare}.
 The reachable set is an ellipsoidal region with a major axis aligned along \( \theta \approx \ang{70} \).
 
-The blue points in~\cref{fig:poincare_compare} are the intersections of the target Moon orbit and the Poincar\`e section.
-The two circular regions are the ascending (right) and descending (left) intersections of the target orbit and Poincar\`e section.
+The blue points in~\cref{fig:poincare_compare} are the intersections of the target Moon orbit and the \Poincare section.
+The two circular regions are the ascending (right) and descending (left) intersections of the target orbit and \Poincare section.
 \Cref{fig:poincare_compare} shows that the reachable set and those of the descending target region intersect.
-As both regions are discretely approximated a linear interpolation is used to determine the exact intersection state on the Poincar\`e section.
+As both regions are discretely approximated a linear interpolation is used to determine the exact intersection state on the \Poincare section.
 This intersection generates a partial target state of \( x_t \text{ and } \dot{x}_t \).
 Using~\cref{eq:jacobi} and the intersection state the final component \( \dot{y} \) is calculated. 
 This results in a complete target state \( \bar{x}_t \) which lies on the reachable set and on the target orbit. 
@@ -646,7 +645,7 @@ A final optimal trajectory is generated such that the \( \bar{x}(N) = \bar{x}_t 
 This transfer trajectory is denoted by the green path in~\cref{fig:reach_trajectory}.
 
 
-%Determine reachable set on Poincar\`e Section
+%Determine reachable set on \Poincare Section
 %
 %Intersection of the sets on section
 %
@@ -656,8 +655,8 @@ This transfer trajectory is denoted by the green path in~\cref{fig:reach_traject
 %
 %Compare with the Ross work and the invariant manifold ( long time of flight)
 \section{Conclusions}\label{sec:conclusion}
-In this work, an optimal transfer process which combines concepts of reachability and Poincar\'e section is used to generate transfer between planar periodic orbits in the three-body problem.
-The Poincar\'e section allows for trajectory design on a lower dimensional phase space and simplifies the process.
+In this paper, an optimal transfer process which combines concepts of reachability and \Poincare section is used to generate transfer between planar periodic orbits in the three-body problem.
+The \Poincare section allows for trajectory design on a lower dimensional phase space and simplifies the process.
 The indirect optimal control formulation enables straightforward method of incorporating additional path and control constraints.
 However, the use of optimal control techniques leads to open loop trajectories that are not robust to model uncertainties or disturbances.
 Lyapunov control theory, which has previously been applied to the two-body problem, is being investigated in the hope of designing closed loop control schemes for this three-body scenario~\cite{chang2002}.
