@@ -33,7 +33,7 @@ The transfer design method of invariant manifolds is extended with the addition 
 A reachable set region is generated and used to determine transfer opportunities, analogous to the intersection of invariant manifolds.
 The reachable set is developed on a lower dimensional Poincar\'e section and used to design transfer trajectories. 
 %Computational geometric mechanics allows for the development of variational integrators and a discrete optimal control problem.
-This is solved numerically as discrete optimal control problem via variational integrator.
+This is solved numerically as a discrete optimal control problem using a variational integrator.
 This provides for a geometrically exact and numerically efficient method for the motion in the three-body problem.
 A numerical simulation is provided developing a transfer from a \( L_1 \) periodic orbit in  the Earth-Moon system to a target orbit about the Moon.
 \end{abstract}
@@ -94,7 +94,7 @@ This will avoid the approximation issues inherent in the previous work, which ut
 With this proposed method, the previous research on control-free trajectories will be generalized with the addition of low-thrust propulsion systems.
 
 % TECHNICAL DESCRIPTION OF APPROACH
-To achieve these objectives, computational geometric optimal control techniques will be applied. 
+To achieve these objectives, computational geometric optimal control techniques are applied. 
 The dynamics of the three-body system are derived from the discrete Lagrangian, which approximates the integral of the continuous time Lagrangian over a fixed discrete step.
 Application of the discrete Euler-Lagrange equations, or the discrete Legendre transform, results in the discrete equations of motion.
 This discrete update map, or variational integrator, shares the same geometric properties of the continuous time system and exhibits much better energy behavior than the traditional integration methods, especially over long time periods.
@@ -159,8 +159,8 @@ where the effective potential \( U\) is defined as
 	\label{eq:eff_pot}
 \end{equation}
 and the control inputs are defined as \( u_x\) and \(u_y\).
-Defining the state \( \bar{x} = \begin{bmatrix}\bar{r} &\bar{v} \end{bmatrix}\) with \(\bar{r} \in \R^{2\times1}\) and \(\bar{v} \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
-The equations of motion may be rewritten in state space form
+The state is defined as \( \bar{x} = \begin{bmatrix}\bar{r} &\bar{v} \end{bmatrix}\) with \(\bar{r} \in \R^{2\times1}\) and \(\bar{v} \in \R^{2\times1}\) representing the position and velocity with respect to the system barycenter, respectively.
+The equations of motion may be rewritten in state space form as
 \begin{equation}
 	\left[\begin{array}{c} \dot{\bar{r}} \\ \dot{\bar{v}} \end{array} \right] = 
 	\left[ \begin{array}{c} \bar{v} \\ A \bar{v} + \nabla U + \bar{u}(t) \end{array} \right] = f\left( t,x, u\right) \, ,
@@ -179,7 +179,7 @@ where the matrix \( A \) and psuedo gravitational potential gradient \( \nabla U
 \subsection{Jacobi Integral}
 There exists a single integral, or constant of motion for the three-body problem~\cite{lanczos1970,szebehely1967}.
 This energy constant is analogous to the total mechanical energy, however is a non-physical quantity arising from the problem formulation~\cite{szebehely1967}.
-Also known as the Jacobi constant, it is defined as a function of the position and velocity in the rotating frame
+Also known as the Jacobi constant, it is defined as a function of the position and velocity in the rotating frame and given by
 \begin{equation}
 	E\left( \bar{r} , \bar{v} \right) = \frac{1}{2}\left( \dot{x}^2 + \dot{y}^2\right) - U\left(x,y \right) \, .
 	\label{eq:jacobi}
@@ -216,7 +216,7 @@ A short background on the variational principle for mechanical systems is presen
 A discrete approximation of the action integral is presented and allows for construction of a variational integrator for the PCRTBP.
 
 \subsection{Variational Principle}
-Consider a continuous mechanical system described by the Lagrangian, \( L( q, \dot{q} ) \), for the generalized position and velocity \( q, \dot{q} \), respectively.
+Consider a continuous mechanical system described by the Lagrangian, \( L( q, \dot{q} ) \), for the generalized position, \( q\), and velocity, \( \dot{q} \).
 In the standard approach of variational mechanics the action integral is formed by integrating the continuous Lagrangian along a path \( q(t) \) that the system follows from time \( t = 0 \) to \( t = T \)~\cite{greenwood1988}.
 In the continuous time the action integral is defined as
 \begin{align}\label{eq:action_integral}
@@ -256,7 +256,7 @@ Both~\cref{eq:euler-lagrange,eq:hamilton_eq} result in equations of motion for t
 \Cref{eq:euler-lagrange} results in \( n \) second order differential equations while~\cref{eq:hamilton_eq} results in \( 2n \) first order differential equations.
 \subsection{Discrete Variational Mechanics}
 A discrete analogue of Hamilton's principle and the action integral is formed.
-Rather than taking a position \( q \) and velocity \( \dot{q} \), consider two positions \( q_0 \) and \( q_1 \) and a fixed time step \( h \in \R \).
+Rather than taking a position, \( q \), and velocity, \( \dot{q} \), consider two positions \( q_0 \) and \( q_1 \) and a fixed time step \( h \in \R \).
 The two positions are points on the curve \( q(t) \) such that \( q_0 \approx q(0) \) and \( q_1 \approx q(h) \).
 A discrete time Lagrangian \( L_d( q_0, q_1) \) is formed which approximates the action integral between \( q_0 \) and \( q_1 \) as 
 \begin{align}\label{eq:discrete_lagrangian}
@@ -458,7 +458,7 @@ The Poincar\'e section is the intersection of a periodic orbit of a dynamical sy
 This allows for greater insight into the stability and dynamics of periodic solutions of dynamic system. 
 Points are drawn as the periodic solution intersects the Poincar\'e section.
 Great insight and structure into the dynamical system is typically available through use of Poincar\'e section
-For example,\cref{fig:poincare_sections} shows the intersections of the invariant manifolds of~\cref{fig:invariant_manifolds} with the Poincar\'e sections defined.
+For example,\cref{fig:poincare_sections} shows the intersections of the invariant manifolds of~\cref{fig:invariant_manifolds} with the Poincar\'e sections defined by the black line segments.
 The Poinar\'e section and the Jacobi integral reduce the state space from four to two dimensions for the planar three-body problem~\cite{koon2001}.
 This greatly eases the design process and allows for a simple planar visualization of the intersection of the invariant manifolds.
 Intersecting states are easy to determine and allow for transfers between invariant manifolds.
@@ -573,7 +573,7 @@ This has the benefit of decreasing the numerical sensitivity of the final states
 A numerical simulation is presented to demonstrate the transfer procedure.
 The goal is to design a transfer trajectory from a planar periodic orbit about the \( L_1\) Lagrange point to a bounded orbit in the vicinity of the Moon.
 The target region is created by choosing an initial condition of \( x_0 = \begin{bmatrix}1.05 & 0 & 0 & 0.35 \end{bmatrix} \) with \( \mu = 0.0125 \).
-The initial state is propagated over a period of \( t = \num{20} \) in non dimensional units which corresponds to approximately \num{1.5} years.
+The initial state is propagated over a period of \( t = \num{20} \) in non-dimensional units which corresponds to approximately \num{1.5} years.
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=0.5\textwidth]{moon_orbit} % requires the graphicx package
@@ -601,7 +601,7 @@ There are no intersections of the invariant manifold with the descending region 
 The numerical values associated with the green points denote the required time of flight along the invariant manifold in non-dimensional units.
 A transfer along the invariant manifold requires on average \( t_f \approx 3.1 \) as compared to \( t_f \approx 1.4 \) of a transfer using low thrust propulsion and the reachable set.
 Finally, it should be noted that an additional maneuver would be required for a transfer using the invariant manifold.
-The intersection on the Poincar\`e section only shows that the \( x , \dot{x} \) components intersect.
+The intersection on the Poincar\`e section only shows that the \( x \text{ and } \dot{x} \) components intersect.
 An additional instantaneous \( \Delta V \) would be required to transfer from the invariant manifold to the target.
 
 A periodic orbit is generated about the \( L_1 \) Lagrange point. 
@@ -639,7 +639,7 @@ The blue points in~\cref{fig:poincare_compare} are the intersections of the targ
 The two circular regions are the ascending (right) and descending (left) intersections of the target orbit and Poincar\`e section.
 \Cref{fig:poincare_compare} shows that the reachable set and those of the descending target region intersect.
 As both regions are discretely approximated a linear interpolation is used to determine the exact intersection state on the Poincar\`e section.
-This intersection generates a partial target state of \( x_t , \dot{x}_t \).
+This intersection generates a partial target state of \( x_t \text{ and } \dot{x}_t \).
 Using~\cref{eq:jacobi} and the intersection state the final component \( \dot{y} \) is calculated. 
 This results in a complete target state \( \bar{x}_t \) which lies on the reachable set and on the target orbit. 
 A final optimal trajectory is generated such that the \( \bar{x}(N) = \bar{x}_t \).
